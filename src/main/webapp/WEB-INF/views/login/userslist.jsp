@@ -35,13 +35,7 @@
 										<th>Firstname</th>
 										<th>Lastname</th>
 										<th>Email</th>
-										<th>SSO ID</th>
-										<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-											<th width="100"></th>
-										</sec:authorize>
-										<sec:authorize access="hasRole('ADMIN')">
-											<th width="100"></th>
-										</sec:authorize>
+										<th colspan="3">SSO ID</th>
 									</tr>
 									</thead>
 									<tbody>
@@ -51,11 +45,9 @@
 											<td>${user.lastName}</td>
 											<td>${user.email}</td>
 											<td>${user.ssoId}</td>
-											<sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-												<td><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a></td>
-											</sec:authorize>
 											<sec:authorize access="hasRole('ADMIN')">
-												<td><a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>
+												<td style="float: right;"><a href="<c:url value='/edit-user-${user.ssoId}' />" class="btn btn-success custom-width">edit</a>
+												<a href="<c:url value='/delete-user-${user.ssoId}' />" class="btn btn-danger custom-width">delete</a></td>
 											</sec:authorize>
 										</tr>
 									</c:forEach>

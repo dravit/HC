@@ -49,7 +49,7 @@
                                     </div>
 
                                     <div class="form-group">
-                                        <label for="lastName" class="control-label col-lg-3">SSO ID</label>
+                                        <label for="ssoId" class="control-label col-lg-3">SSO ID</label>
                                         <span class="col-lg-8">
                                         <c:choose>
                                             <c:when test="${edit}">
