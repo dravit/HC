@@ -23,6 +23,7 @@
                             <header>
                                 <div class="icons"><i class="fa fa-table"></i></div>
                                 <h5>List Of Clients</h5>
+                                <span><a href="<c:url value='/addClient' />" style="float:right; margin-right:10px; padding-top: 5px">Add Client</a></span>
                             </header>
                             <div id="collapse4" class="body">
                                 <table id="dataTable"
@@ -31,13 +32,8 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Email</th>
-                                        <th>Contact No.</th>
-                                        <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-                                            <th width="100"></th>
-                                        </sec:authorize>
-                                        <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-                                            <th width="100"></th>
-                                        </sec:authorize>
+                                        <th colspan="2">Contact No.</th>
+
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -46,11 +42,9 @@
                                             <td>${client.clientName}</td>
                                             <td>${client.emailID}</td>
                                             <td>${client.clientContactNumber}</td>
-                                            <sec:authorize access="hasRole('ADMIN') or hasRole('DBA')">
-                                                <td><a href="<c:url value='/edit-client-${client.id}' />" class="btn btn-success custom-width">edit</a></td>
-                                            </sec:authorize>
                                             <sec:authorize access="hasRole('ADMIN')">
-                                                <td><a href="<c:url value='/delete-client-${client.id}' />" class="btn btn-danger custom-width">delete</a></td>
+                                                <td style="float: right;"><a href="<c:url value='/edit-client-${client.id}' />" class="btn btn-success custom-width">edit</a>
+                                                <a href="<c:url value='/delete-client-${client.id}' />" class="btn btn-danger custom-width">delete</a></td>
                                             </sec:authorize>
                                         </tr>
                                     </c:forEach>
@@ -65,7 +59,6 @@
     </div>
 </body>
 <script>
-
     $(function () {
         Metis.MetisTable();
     });
