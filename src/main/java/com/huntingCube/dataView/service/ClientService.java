@@ -17,5 +17,7 @@ public interface ClientService {
 
     void save(Client client);
 
+    void updateClient(Client client);
+
     void deleteById(int id);
 }

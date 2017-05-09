@@ -40,6 +40,17 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public void updateClient(Client client) {
+        Client entity = clientDao.findById(client.getId());
+        if(entity != null) {
+            entity.setClientName(client.getClientName());
+            entity.setEmailID(client.getEmailID());
+            entity.setClientContactNumber(client.getClientContactNumber());
+            entity.setAddedBy(client.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         clientDao.deleteById(id);
     }
