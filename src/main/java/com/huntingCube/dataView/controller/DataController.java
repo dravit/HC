@@ -159,4 +159,49 @@ public class DataController {
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         return "dataView/clientList";
     }
+
+    @RequestMapping(value = {"/addClient"}, method = RequestMethod.POST)
+    public String saveClient(@Valid Client client, BindingResult result,
+                             ModelMap model) {
+        try {
+            HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+            logger.info(client.toString());
+            if (result.hasErrors()) {
+                logger.info("Error in result");
+            }
+            clientService.save(client);
+        } catch (Exception e) {
+            logger.error("Error while saving resource", e);
+        }
+        return "redirect:/clientList";
+    }
+
+    @RequestMapping(value = {"/addClient"}, method = RequestMethod.GET)
+    public String addClient(ModelMap model) {
+        Client client = new Client();
+        model.addAttribute("client", client);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClient";
+    }
+
+    @RequestMapping(value = { "/edit-client-{clientId}" }, method = RequestMethod.GET)
+    public String editClient(@PathVariable int clientId, ModelMap model) {
+        Client client = clientService.findById(clientId);
+        model.addAttribute("client", client);
+        model.addAttribute("edit", true);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClient";
+    }
+
+    @RequestMapping(value = {"/edit-client-{clientId}"}, method = RequestMethod.POST)
+    public String updateClient(@Valid Client client, BindingResult result,
+                             ModelMap model) {
+        if(result.hasErrors()) {
+            return "dataView/addClient";
+        }
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        client.setAddedBy((String)model.get("userSSOId"));
+        clientService.updateClient(client);
+        return "redirect:/clientList";
+    }
 }
