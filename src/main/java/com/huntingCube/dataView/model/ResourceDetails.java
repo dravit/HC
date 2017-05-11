@@ -93,13 +93,6 @@ public class ResourceDetails extends BaseEntity implements Serializable {
     @Column(name = "ADDED_DATE")
     private Date addedDate;
 
-    @NotEmpty
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "RESOURCE_CLIENT_HISTORY",
-            joinColumns = { @JoinColumn(name = "RESOURCE_ID") },
-            inverseJoinColumns = { @JoinColumn(name = "CLIENT_HISTORY_ID") })
-    private Set<ClientHistory> clientHistories = new HashSet<ClientHistory>();
-
     public String getLinkedinProfile() {
         return linkedinProfile;
     }
@@ -282,14 +275,6 @@ public class ResourceDetails extends BaseEntity implements Serializable {
 
     public void setOtherRank(String otherRank) {
         this.otherRank = otherRank;
-    }
-
-    public Set<ClientHistory> getClientHistories() {
-        return clientHistories;
-    }
-
-    public void setClientHistories(Set<ClientHistory> clientHistories) {
-        this.clientHistories = clientHistories;
     }
 
     @Override

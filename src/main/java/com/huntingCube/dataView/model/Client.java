@@ -4,6 +4,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by dgup27 on 5/6/2017.
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "CLIENT")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Client extends BaseEntity{
+public class Client extends BaseEntity implements Serializable {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

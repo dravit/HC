@@ -1,8 +1,11 @@
 package com.huntingCube.dataView.model;
 
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -11,7 +14,7 @@ import java.util.Date;
 @Entity
 @Table(name = "CLIENT_HISTORY")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ClientHistory extends BaseEntity {
+public class ClientHistory extends BaseEntity implements Serializable {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +28,10 @@ public class ClientHistory extends BaseEntity {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "CLIENT_STATUS_ID")
     private ClientStatus clientStatus;
+
+    @NotNull
+    @Column(name = "RESOURCE_ID", nullable = false)
+    private int resourceID;
 
     @Column(name = "ADDED_DATE")
     private Date addedDate;
@@ -53,11 +60,30 @@ public class ClientHistory extends BaseEntity {
         this.clientStatus = clientStatus;
     }
 
+    public int getResourceID() {
+        return resourceID;
+    }
+
+    public void setResourceID(int resourceID) {
+        this.resourceID = resourceID;
+    }
+
     public Date getAddedDate() {
         return addedDate;
     }
 
     public void setAddedDate(Date addedDate) {
         this.addedDate = addedDate;
+    }
+
+    @Override
+    public String toString() {
+        return "ClientHistory{" +
+                "client=" + client +
+                ", clientStatus=" + clientStatus +
+                ", resourceID=" + resourceID +
+                ", addedDate=" + addedDate +
+                ", addedBy=" + getAddedBy() +
+                '}';
     }
 }
