@@ -41,6 +41,7 @@
                                 <li><a href="<c:url value='/addResourceExcel' />">Upload Excel</a></li>
                             </sec:authorize>
                             <li><a href="<c:url value='/clientList' />">Clients</a></li>
+                            <li><a href="<c:url value='/clientStatusList' />">Client Status</a></li>
                             <li><a href="<c:url value='/streamList' />">Streams</a></li>
                             <li><a href="<c:url value='/list' />">Users List</a></li>
                             <li><a href="<c:url value='/edit-user-${userSSOId}' />">Edit Details</a></li>
