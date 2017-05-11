@@ -23,14 +23,19 @@ public class ClientHistoryServiceImpl implements ClientHistoryService {
         return clientHistoryDao.findById(id);
     }
 
-    @Override
+/*    @Override
     public List<ClientHistory> findByClientID(String name) {
         return clientHistoryDao.findByClientID(name);
-    }
+    }*/
 
     @Override
     public List<ClientHistory> findByRecruiter(String ssoID) {
         return clientHistoryDao.findByRecruiter(ssoID);
+    }
+
+    @Override
+    public List<ClientHistory> findByResource(int resourceID) {
+        return clientHistoryDao.findByResource(resourceID);
     }
 
     @Override

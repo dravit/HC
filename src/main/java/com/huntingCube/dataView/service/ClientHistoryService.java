@@ -8,11 +8,14 @@ import java.util.List;
  * Created by dgup27 on 5/7/2017.
  */
 public interface ClientHistoryService {
+
     ClientHistory findById(int id);
 
-    List<ClientHistory> findByClientID(String name);
+    /*List<ClientHistory> findByClientID(int ClientId);*/
 
     List<ClientHistory> findByRecruiter(String ssoID);
+
+    List<ClientHistory> findByResource(int resourceID);
 
     List<ClientHistory> findAll();
 
