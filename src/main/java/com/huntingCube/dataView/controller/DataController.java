@@ -19,7 +19,7 @@ import java.util.List;
  * Created by dgup27 on 1/10/2017.
  */
 @Controller
-@SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams"})
+@SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams", "clients", "clientStatuses"})
 public class DataController {
 
     static final Logger logger = LoggerFactory.getLogger(DataController.class);
@@ -48,6 +48,12 @@ public class DataController {
     @Autowired
     ClientService clientService;
 
+    @Autowired
+    ClientStatusService clientStatusService;
+
+    @Autowired
+    ClientHistoryService clientHistoryService;
+
     @ModelAttribute("institutes")
     public List<Institute> initializeInstitutes() {
         return instituteService.findAllInstitutes();
@@ -73,6 +79,15 @@ public class DataController {
         return streamService.findAllStreams();
     }
 
+    @ModelAttribute("clients")
+    public List<Client> initializeClients() {
+        return clientService.findAllClients();
+    }
+
+    @ModelAttribute("clientStatuses")
+    public List<ClientStatus> initializeClientStatues() {
+        return clientStatusService.findAllStatus();
+    }
 
     /**
      * This method will redirect user having only User role to data view page.
@@ -152,7 +167,7 @@ public class DataController {
      * This method will list all existing users.
      */
     @RequestMapping(value = {"/clientList"}, method = RequestMethod.GET)
-    public String listUsers(ModelMap model) {
+    public String clientList(ModelMap model) {
 
         List<Client> clients = clientService.findAllClients();
         model.addAttribute("clients", clients);
@@ -171,7 +186,7 @@ public class DataController {
             }
             clientService.save(client);
         } catch (Exception e) {
-            logger.error("Error while saving resource", e);
+            logger.error("Error while saving Client", e);
         }
         return "redirect:/clientList";
     }
@@ -203,5 +218,88 @@ public class DataController {
         client.setAddedBy((String)model.get("userSSOId"));
         clientService.updateClient(client);
         return "redirect:/clientList";
+    }
+
+    /**
+     * This method will list all existing users.
+     */
+    @RequestMapping(value = {"/clientStatusList"}, method = RequestMethod.GET)
+    public String clientStatusList(ModelMap model) {
+
+        List<ClientStatus> clientStatus = clientStatusService.findAllStatus();
+        model.addAttribute("clientStatus", clientStatus);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/clientStatusList";
+    }
+
+    @RequestMapping(value = {"/addClientStatus"}, method = RequestMethod.POST)
+    public String saveClientStatus(@Valid ClientStatus clientStatus, BindingResult result,
+                             ModelMap model) {
+        try {
+            HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+            logger.info(clientStatus.toString());
+            if (result.hasErrors()) {
+                logger.info("Error in result");
+            }
+            clientStatusService.save(clientStatus);
+        } catch (Exception e) {
+            logger.error("Error while saving Client Status", e);
+        }
+        return "redirect:/clientStatusList";
+    }
+
+    @RequestMapping(value = {"/addClientStatus"}, method = RequestMethod.GET)
+    public String addClientStatus(ModelMap model) {
+        ClientStatus clientStatus = new ClientStatus();
+        model.addAttribute("clientStatus", clientStatus);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClientStatus";
+    }
+
+    @RequestMapping(value = { "/edit-clientStatus-{clientStatusId}" }, method = RequestMethod.GET)
+    public String editClientStatus(@PathVariable int clientStatusId, ModelMap model) {
+        ClientStatus clientStatus = clientStatusService.findById(clientStatusId);
+        model.addAttribute("clientStatus", clientStatus);
+        model.addAttribute("edit", true);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClientStatus";
+    }
+
+    @RequestMapping(value = {"/edit-clientStatus-{clientStatusId}"}, method = RequestMethod.POST)
+    public String updateClientStatus(@Valid ClientStatus clientStatus, BindingResult result,
+                               ModelMap model) {
+        if(result.hasErrors()) {
+            return "dataView/addClientStatus";
+        }
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        clientStatus.setAddedBy((String)model.get("userSSOId"));
+        clientStatusService.updateClientStatus(clientStatus);
+        return "redirect:/clientStatusList";
+    }
+
+    @RequestMapping(value = {"/addClientHistory-{resourceID}"}, method = RequestMethod.GET)
+    public String addClientHistory(@PathVariable int resourceID, ModelMap model) {
+        ClientHistory historyDetails = new ClientHistory();
+        historyDetails.setResourceID(resourceID);
+        model.addAttribute("historyDetails", historyDetails);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClientHistory";
+    }
+
+    @RequestMapping(value = {"/addClientHistory-{resourceID}"}, method = RequestMethod.POST)
+    public String saveClientHistory(@Valid ClientHistory historyDetails, BindingResult result,
+                               ModelMap model) {
+        try {
+            HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+            historyDetails.setAddedBy((String) model.get("userSSOId"));
+            logger.info("History Details >>>>>>>>>>>>"+historyDetails.toString());
+            if (result.hasErrors()) {
+                logger.info("Error in result");
+            }
+            clientHistoryService.save(historyDetails);
+        } catch (Exception e) {
+            logger.error("Error while saving Client History", e);
+        }
+        return "redirect:/dataList";
     }
 }
