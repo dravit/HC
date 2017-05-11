@@ -38,6 +38,12 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	@Autowired
 	ProgramConverter programConverter;
 
+	@Autowired
+	ClientConverter clientConverter;
+
+	@Autowired
+	ClientStatusConverter clientStatusConverter;
+
 	/**
      * Configure ViewResolvers to deliver preferred views.
      */
@@ -71,6 +77,8 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		registry.addConverter(passingYearConverter);
 		registry.addConverter(streamConverter);
 		registry.addConverter(locationConverter);
+		registry.addConverter(clientConverter);
+		registry.addConverter(clientStatusConverter);
 	}
 	
 
