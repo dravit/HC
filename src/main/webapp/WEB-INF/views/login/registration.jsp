@@ -88,12 +88,20 @@
                                     <div class="form-group">
                                         <label for="userProfiles" class="control-label col-lg-3">Roles</label>
                                         <span class="col-lg-8">
-                                            <sec:authorize access="hasRole('ADMIN')">
+                                            <c:choose>
+                                            <c:when test="${edit}">
+                                                <sec:authorize access="hasRole('ADMIN')">
+                                                    <form:select path="userProfiles"  items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control"/>
+                                                </sec:authorize>
+                                                <sec:authorize access="hasRole('USER')">
+                                                    <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control" disabled="true"/>
+                                                </sec:authorize>
+                                            </c:when>
+                                            <c:otherwise>
                                                 <form:select path="userProfiles"  items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control"/>
-                                            </sec:authorize>
-                                            <sec:authorize access="hasRole('USER')">
-                                                <form:select path="userProfiles" items="${roles}" multiple="true" itemValue="id" itemLabel="type" class="form-control" disabled="true"/>
-                                            </sec:authorize>
+                                            </c:otherwise>
+                                            </c:choose>
+
                                             <div class="has-error">
                                                 <form:errors path="userProfiles" class="help-inline"/>
                                             </div>

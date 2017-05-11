@@ -60,4 +60,14 @@ public class Client extends BaseEntity implements Serializable {
     public void setClientContactNumber(String clientContactNumber) {
         this.clientContactNumber = clientContactNumber;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", clientName='" + clientName + '\'' +
+                ", emailID='" + emailID + '\'' +
+                ", clientContactNumber='" + clientContactNumber + '\'' +
+                '}';
+    }
 }

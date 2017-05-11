@@ -36,7 +36,7 @@ public class ClientStatusDaoImpl extends AbstractDao<Integer, ClientStatus> impl
 
     @Override
     public void save(ClientStatus clientStatus) {
-        persist(clientStatus);
+        saveOrUpdate(clientStatus);
     }
 
     @Override

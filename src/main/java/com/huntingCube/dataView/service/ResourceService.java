@@ -16,5 +16,7 @@ public interface ResourceService {
 
     void save(ResourceDetails resourceDetails);
 
+    void update(ResourceDetails resourceDetails);
+
     void saveExcelRecords(String filePath);
 }

@@ -37,7 +37,7 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
     @Override
     public void save(Client client) {
-        persist(client);
+        saveOrUpdate(client);
     }
 
     @Override

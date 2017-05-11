@@ -21,6 +21,9 @@ public class ClientStatusConverter implements Converter<Object, ClientStatus> {
 
     @Override
     public ClientStatus convert(Object source) {
+        if(source != null && source instanceof ClientStatus) {
+            return (ClientStatus) source;
+        }
         Integer id = Integer.parseInt((String) source);
         ClientStatus clientStatus = clientStatusService.findById(id);
         logger.info("Client Status : {}", clientStatus);

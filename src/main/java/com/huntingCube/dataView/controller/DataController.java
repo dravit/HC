@@ -2,6 +2,7 @@ package com.huntingCube.dataView.controller;
 
 import com.huntingCube.dataView.model.*;
 import com.huntingCube.dataView.service.*;
+import com.huntingCube.login.model.User;
 import com.huntingCube.login.service.UserService;
 import com.huntingCube.utility.HuntingCubeUtility;
 import org.slf4j.Logger;
@@ -13,7 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
+import java.util.ListIterator;
 
 /**
  * Created by dgup27 on 1/10/2017.
@@ -129,9 +132,30 @@ public class DataController {
     @RequestMapping(value = {"/addResource"}, method = RequestMethod.POST)
     public String saveResource(@Valid ResourceDetails resourceDetails, BindingResult result,
                                ModelMap model) {
+        return saveOrUpdateResource(resourceDetails, result, model);
+    }
+
+    @RequestMapping(value = {"/editResource-{resourceID}"}, method = RequestMethod.GET)
+    public String editResource(@PathVariable String resourceID, ModelMap model) {
+        ResourceDetails resourceDetails = resourceService.findById(Integer.parseInt(resourceID));
+        model.addAttribute("resourceDetails", resourceDetails);
+        model.addAttribute("edit", true);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addResource";
+    }
+
+    @RequestMapping(value = {"/editResource-{resourceID}"}, method = RequestMethod.POST)
+    public String updateResource(@Valid ResourceDetails resourceDetails, BindingResult result,
+                               ModelMap model) {
+        return saveOrUpdateResource(resourceDetails, result, model);
+    }
+
+    private String saveOrUpdateResource(ResourceDetails resourceDetails, BindingResult result,
+                                        ModelMap model) {
         try {
             HuntingCubeUtility.setGlobalModelAttributes(model, userService);
             resourceDetails.setAddedBy((String) model.get("userSSOId"));
+            resourceDetails.setAddedDate(new Date());
             logger.info(resourceDetails.toString());
             if (result.hasErrors()) {
                 logger.info("Error in result");
@@ -292,7 +316,7 @@ public class DataController {
         try {
             HuntingCubeUtility.setGlobalModelAttributes(model, userService);
             historyDetails.setAddedBy((String) model.get("userSSOId"));
-            logger.info("History Details >>>>>>>>>>>>"+historyDetails.toString());
+            historyDetails.setAddedDate(new Date());
             if (result.hasErrors()) {
                 logger.info("Error in result");
             }
@@ -301,5 +325,20 @@ public class DataController {
             logger.error("Error while saving Client History", e);
         }
         return "redirect:/dataList";
+    }
+
+    @RequestMapping(value = {"/getClientHistory-{resourceID}"}, method = RequestMethod.GET)
+    public String getResourceClientHistory(@PathVariable int resourceID, ModelMap model) {
+        List<ClientHistory> clientHistoryList = clientHistoryService.findByResource(resourceID);
+        if(clientHistoryList != null) {
+            ListIterator<ClientHistory> clientHistoryListIterator = clientHistoryList.listIterator();
+            while(clientHistoryListIterator.hasNext()) {
+                ClientHistory clientHistory = clientHistoryListIterator.next();
+                User user = userService.findBySSO(clientHistory.getAddedBy());
+                clientHistory.setAddedBy(user.getFirstName() + " " + user.getLastName());
+            }
+        }
+        model.addAttribute("clientHistoryList", clientHistoryList);
+        return "dataView/clientHistoryList";
     }
 }

@@ -198,7 +198,14 @@
                     </div>
 
                     <div class="form-actions no-margin-bottom">
-                        <input type="submit" value="Add Resource" class="btn btn-primary">
+                        <c:choose>
+                            <c:when test="${edit}">
+                                <input type="submit" value="Update Resource" class="btn btn-primary">
+                            </c:when>
+                            <c:otherwise>
+                                <input type="submit" value="Add Resource" class="btn btn-primary">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                 </form:form>

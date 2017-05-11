@@ -60,6 +60,13 @@ public class ResourceServiceImpl implements ResourceService {
         resourceDao.save(resourceDetails);
     }
 
+    public void update(ResourceDetails resourceDetails) {
+        ResourceDetails entity = resourceDao.findById(resourceDetails.getId());
+        if(entity != null) {
+            entity = resourceDetails;
+        }
+    }
+
     @Override
     public void saveExcelRecords(String filePath) {
         try {

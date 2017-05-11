@@ -21,9 +21,16 @@ public class ClientConverter implements Converter<Object, Client> {
 
     @Override
     public Client convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        Client client = clientService.findById(id);
-        logger.info("Client : {}", client);
-        return client;
+        if(source != null && source instanceof Client) {
+            return (Client) source;
+        }
+        if(source != null && source instanceof String) {
+            Integer id = Integer.parseInt((String) source);
+            Client client = clientService.findById(id);
+            logger.info("Client : {}", client);
+            return client;
+        } else {
+            return null;
+        }
     }
 }
