@@ -47,10 +47,7 @@ public class ResourceDaoImpl extends AbstractDao<Integer, ResourceDetails> imple
         }
         criteria.addOrder(Order.asc("name"));
         //criteria.setMaxResults(maxRecords);
-        logger.info(criteria.toString());
         List<ResourceDetails> resourceDetailsList = (List<ResourceDetails>) criteria.list();
-        logger.info(resourceDetailsList.toString());
-        logger.info(resourceDetailsList.size() + "");
         return resourceDetailsList;
     }
 }

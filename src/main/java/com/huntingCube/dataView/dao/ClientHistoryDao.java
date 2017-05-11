@@ -11,9 +11,11 @@ public interface ClientHistoryDao {
 
     ClientHistory findById(int id);
 
-    List<ClientHistory> findByClientID(String name);
+    /*List<ClientHistory> findByClientID(int ClientId);*/
 
     List<ClientHistory> findByRecruiter(String ssoID);
+
+    List<ClientHistory> findByResource(int resourceID);
 
     List<ClientHistory> findAll();
 
