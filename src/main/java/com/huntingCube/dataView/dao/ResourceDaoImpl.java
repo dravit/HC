@@ -2,6 +2,7 @@ package com.huntingCube.dataView.dao;
 
 import com.huntingCube.dataView.model.ResourceDetails;
 import com.huntingCube.global.resources.dao.AbstractDao;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
@@ -26,8 +27,28 @@ public class ResourceDaoImpl extends AbstractDao<Integer, ResourceDetails> imple
     }
 
     @Override
+    public void updateResource(ResourceDetails resourceDetails) {
+        update(resourceDetails);
+    }
+
+    @Override
     public ResourceDetails findById(int id) {
         return getByKey(id);
+    }
+
+    @Override
+    public ResourceDetails findByEmail(String emailID) {
+        if(!HuntingCubeUtility.isNotEmptyOrNull(emailID)) {
+            return null;
+        }
+
+        Criteria criteria = createEntityCriteria();
+        if (!emailID.isEmpty()) {
+            criteria.add(Restrictions.ilike("emailId", emailID, MatchMode.ANYWHERE));
+        }
+        criteria.addOrder(Order.asc("name"));
+        ResourceDetails resourceDetails = (ResourceDetails)criteria.uniqueResult();
+        return resourceDetails;
     }
 
     @Override

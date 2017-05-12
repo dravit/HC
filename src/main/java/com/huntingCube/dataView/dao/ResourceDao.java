@@ -11,7 +11,11 @@ public interface ResourceDao {
 
     void save(ResourceDetails resourceDetails);
 
+    void updateResource(ResourceDetails resourceDetails);
+
     ResourceDetails findById(int id);
+
+    ResourceDetails findByEmail(String emailID);
 
     List<ResourceDetails> findResources(int maxRecords, ResourceDetails resourceDetails);
 }
