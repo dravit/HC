@@ -32,4 +32,11 @@ public class HuntingCubeUtility {
             model.addAttribute("userProfiles", userProfiles);
         }
     }
+
+    public static boolean isNotEmptyOrNull(String objectToCheck) {
+        if(objectToCheck != null && !objectToCheck.trim().isEmpty())
+            return true;
+        else
+            return false;
+    }
 }
