@@ -31,19 +31,19 @@ public class ResourceDetails extends BaseEntity implements Serializable {
     private String emailId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "INSTITUTE_ID")
+    @JoinColumn(name = "INSTITUTE_ID", insertable = false, updatable = false)
     private Institute institute;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "STREAM_ID")
+    @JoinColumn(name = "STREAM_ID", insertable = false, updatable = false)
     private Stream stream;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PROGRAM_ID")
+    @JoinColumn(name = "PROGRAM_ID", insertable = false, updatable = false)
     private Program program;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "PASSING_YEAR_ID")
+    @JoinColumn(name = "PASSING_YEAR_ID", insertable = false, updatable = false)
     private PassingYear passingYear;
 
     @Column(name = "CGPA")
@@ -70,18 +70,24 @@ public class ResourceDetails extends BaseEntity implements Serializable {
     @Column(name = "EXPERIENCE")
     private int experience;
 
-    @Column(name = "CTC")
-    private String CTC;
+    @Column(name = "FIXED_CTC")
+    private String fixedCTC;
+
+    @Column(name = "VARIABLE_CTC")
+    private String variableCTC;
+
+    @Column(name = "EXPECTED_CTC")
+    private String expectedCTC;
 
     @Column(name = "NOTICE_PERIOD")
     private double noticePeriod;
 
     @OneToOne
-    @JoinColumn(name = "CURRENT_LOCATION_ID", referencedColumnName = "LOCATION_ID")
+    @JoinColumn(name = "CURRENT_LOCATION_ID", referencedColumnName = "LOCATION_ID", insertable = false, updatable = false)
     private Location currentLocation;
 
     @OneToOne
-    @JoinColumn(name = "PREFERRED_LOCATION_ID", referencedColumnName = "LOCATION_ID")
+    @JoinColumn(name = "PREFERRED_LOCATION_ID", referencedColumnName = "LOCATION_ID", insertable = false, updatable = false)
     private Location preferredLocation;
 
     @Column(name = "LINKDIN_PROFILE")
@@ -189,12 +195,28 @@ public class ResourceDetails extends BaseEntity implements Serializable {
         this.experience = experience;
     }
 
-    public String getCTC() {
-        return CTC;
+    public String getFixedCTC() {
+        return fixedCTC;
     }
 
-    public void setCTC(String CTC) {
-        this.CTC = CTC;
+    public void setFixedCTC(String fixedCTC) {
+        this.fixedCTC = fixedCTC;
+    }
+
+    public String getVariableCTC() {
+        return variableCTC;
+    }
+
+    public void setVariableCTC(String variableCTC) {
+        this.variableCTC = variableCTC;
+    }
+
+    public String getExpectedCTC() {
+        return expectedCTC;
+    }
+
+    public void setExpectedCTC(String expectedCTC) {
+        this.expectedCTC = expectedCTC;
     }
 
     public double getNoticePeriod() {
@@ -280,7 +302,7 @@ public class ResourceDetails extends BaseEntity implements Serializable {
     @Override
     public String toString() {
         return "ResourceDetails{" +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
                 ", emailId='" + emailId + '\'' +
                 ", institute=" + institute +
@@ -289,17 +311,20 @@ public class ResourceDetails extends BaseEntity implements Serializable {
                 ", passingYear=" + passingYear +
                 ", CGPA=" + CGPA +
                 ", airRank=" + airRank +
+                ", otherRank='" + otherRank + '\'' +
                 ", areaOfExpertise='" + areaOfExpertise + '\'' +
                 ", skills='" + skills + '\'' +
                 ", designation='" + designation + '\'' +
-                ", Company='" + company + '\'' +
+                ", company='" + company + '\'' +
                 ", experience=" + experience +
-                ", CTC='" + CTC + '\'' +
-                ", noticePeriod='" + noticePeriod + '\'' +
+                ", fixedCTC='" + fixedCTC + '\'' +
+                ", variableCTC='" + variableCTC + '\'' +
+                ", noticePeriod=" + noticePeriod +
                 ", currentLocation=" + currentLocation +
                 ", preferredLocation=" + preferredLocation +
                 ", linkedinProfile='" + linkedinProfile + '\'' +
                 ", facebookProfile='" + facebookProfile + '\'' +
+                ", addedDate=" + addedDate +
                 '}';
     }
 }

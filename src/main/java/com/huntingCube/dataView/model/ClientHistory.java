@@ -36,6 +36,12 @@ public class ClientHistory extends BaseEntity implements Serializable {
     @Column(name = "ADDED_DATE")
     private Date addedDate;
 
+    @Column(name = "CLIENT_REMARKS")
+    private String remarks;
+
+    @Column(name = "POSITION")
+    private String position;
+
     public int getId() {
         return id;
     }
@@ -76,14 +82,32 @@ public class ClientHistory extends BaseEntity implements Serializable {
         this.addedDate = addedDate;
     }
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
     @Override
     public String toString() {
         return "ClientHistory{" +
-                "client=" + client +
+                "id=" + id +
+                ", client=" + client +
                 ", clientStatus=" + clientStatus +
                 ", resourceID=" + resourceID +
                 ", addedDate=" + addedDate +
-                ", addedBy=" + getAddedBy() +
+                ", remarks='" + remarks + '\'' +
+                ", position='" + position + '\'' +
                 '}';
     }
 }
