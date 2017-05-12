@@ -2,6 +2,7 @@ package com.huntingCube.dataView.service;
 
 import com.huntingCube.dataView.dao.*;
 import com.huntingCube.dataView.model.*;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -54,12 +55,83 @@ public class ResourceServiceImpl implements ResourceService {
         return resourceDao.findById(id);
     }
 
+    @Override
+    public ResourceDetails findByEmail(String emailID) {
+        return resourceDao.findByEmail(emailID);
+    }
 
     @Override
     public void save(ResourceDetails resourceDetails) {
+        /*ResourceDetails resourceByEmail = findByEmail(resourceDetails.getEmailId());
+        resourceByEmail = resourceDao.findById(resourceByEmail.getId());
+        if(resourceByEmail != null) {
+            try {
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getName()))
+                    resourceByEmail.setName(resourceDetails.getName());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getContactNumber()))
+                    resourceByEmail.setContactNumber(resourceByEmail.getContactNumber() + " / " + resourceDetails.getContactNumber());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getInstitute().getInstituteName()))
+                    resourceByEmail.setInstitute(resourceDetails.getInstitute());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getStream().getStreamName()))
+                    resourceByEmail.setStream(resourceDetails.getStream());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getProgram().getProgramName()))
+                    resourceByEmail.setProgram(resourceDetails.getProgram());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getPassingYear().getPassingYear()))
+                    resourceByEmail.setPassingYear(resourceDetails.getPassingYear());
+
+                resourceByEmail.setCGPA(resourceDetails.getCGPA());
+
+                resourceByEmail.setAirRank(resourceDetails.getAirRank());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getOtherRank()))
+                    resourceByEmail.setOtherRank(resourceDetails.getOtherRank());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getAreaOfExpertise()))
+                    resourceByEmail.setAreaOfExpertise(resourceDetails.getAreaOfExpertise());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getSkills()))
+                    resourceByEmail.setSkills(resourceDetails.getSkills());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getDesignation()))
+                    resourceByEmail.setDesignation(resourceDetails.getDesignation());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCompany()))
+                    resourceByEmail.setCompany(resourceDetails.getCompany());
+
+                resourceByEmail.setExperience(resourceDetails.getExperience());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCTC()))
+                    resourceByEmail.setCTC(resourceDetails.getCTC());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCurrentLocation().getLocationName()))
+                    resourceByEmail.setCurrentLocation(resourceDetails.getCurrentLocation());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getPreferredLocation().getLocationName()))
+                    resourceByEmail.setPreferredLocation(resourceDetails.getPreferredLocation());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getLinkedinProfile()))
+                    resourceByEmail.setLinkedinProfile(resourceDetails.getLinkedinProfile());
+
+                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getFacebookProfile()))
+                    resourceByEmail.setFacebookProfile(resourceDetails.getFacebookProfile());
+
+                resourceByEmail.setAddedDate(resourceDetails.getAddedDate());
+                resourceByEmail.setAddedBy(resourceDetails.getAddedBy());
+            } catch (Exception e) {
+                logger.error("Error while updating resource", e);
+            }
+        } else {
+            resourceDao.save(resourceDetails);
+        }*/
         resourceDao.save(resourceDetails);
     }
 
+    @Override
     public void update(ResourceDetails resourceDetails) {
         ResourceDetails entity = resourceDao.findById(resourceDetails.getId());
         if(entity != null) {
@@ -111,7 +183,6 @@ public class ResourceServiceImpl implements ResourceService {
                     } else if (rowCount != 0) {
                         rowMap.put(columnNamesList.get(index), "NA");
                     }
-
                 }
                 if (rowCount == 0) {
                     //Do nothing
@@ -122,65 +193,65 @@ public class ResourceServiceImpl implements ResourceService {
                         Program program = null;
                         PassingYear passingYear = null;
                         Location location = null;
-                        resourceDetails.setName(rowMap.get(columnNamesList.get(0)));
-                        resourceDetails.setContactNumber(rowMap.get(columnNamesList.get(1)));
-                        resourceDetails.setEmailId("NA".equals(rowMap.get(columnNamesList.get(2))) ? "" : rowMap.get(columnNamesList.get(2)));
-                        if (instituteDao.findByName(rowMap.get(columnNamesList.get(3))) != null) {
-                            resourceDetails.setInstitute(instituteDao.findByName(rowMap.get(columnNamesList.get(3))));
+                        resourceDetails.setName(rowMap.get(columnNamesList.get(6)));
+                        resourceDetails.setContactNumber(rowMap.get(columnNamesList.get(7)));
+                        resourceDetails.setEmailId("NA".equals(rowMap.get(columnNamesList.get(8))) ? "" : rowMap.get(columnNamesList.get(8)));
+                        if (instituteDao.findByName(rowMap.get(columnNamesList.get(9))) != null) {
+                            resourceDetails.setInstitute(instituteDao.findByName(rowMap.get(columnNamesList.get(9))));
                         } else {
                             institute = new Institute();
-                            institute.setInstituteName(rowMap.get(columnNamesList.get(3)).toUpperCase());
+                            institute.setInstituteName(rowMap.get(columnNamesList.get(9)).toUpperCase());
                             institute.setAddedBy("Excel Upload");
                             instituteDao.save(institute);
                             resourceDetails.setInstitute(institute);
                         }
-                        if (streamDao.findByName(rowMap.get(columnNamesList.get(4))) != null) {
-                            resourceDetails.setStream(streamDao.findByName(rowMap.get(columnNamesList.get(4))));
+                        if (streamDao.findByName(rowMap.get(columnNamesList.get(10))) != null) {
+                            resourceDetails.setStream(streamDao.findByName(rowMap.get(columnNamesList.get(10))));
                         } else {
                             stream = new Stream();
-                            stream.setStreamName(rowMap.get(columnNamesList.get(4)).toUpperCase());
+                            stream.setStreamName(rowMap.get(columnNamesList.get(10)).toUpperCase());
                             stream.setAddedBy("Excel Upload");
                             streamDao.save(stream);
                             resourceDetails.setStream(stream);
                         }
-                        if (programDao.findByName(rowMap.get(columnNamesList.get(5))) != null) {
-                            resourceDetails.setProgram(programDao.findByName(rowMap.get(columnNamesList.get(5))));
+                        if (programDao.findByName(rowMap.get(columnNamesList.get(11))) != null) {
+                            resourceDetails.setProgram(programDao.findByName(rowMap.get(columnNamesList.get(11))));
                         } else {
                             program = new Program();
-                            program.setProgramName(rowMap.get(columnNamesList.get(5)).toUpperCase());
+                            program.setProgramName(rowMap.get(columnNamesList.get(11)).toUpperCase());
                             program.setAddedBy("Excel Upload");
                             programDao.save(program);
                             resourceDetails.setProgram(program);
                         }
-                        if (passingYearDao.findByName(rowMap.get(columnNamesList.get(6))) != null) {
-                            resourceDetails.setPassingYear(passingYearDao.findByName(rowMap.get(columnNamesList.get(6))));
+                        if (passingYearDao.findByName(rowMap.get(columnNamesList.get(12))) != null) {
+                            resourceDetails.setPassingYear(passingYearDao.findByName(rowMap.get(columnNamesList.get(12))));
                         } else {
                             passingYear = new PassingYear();
-                            passingYear.setPassingYear(rowMap.get(columnNamesList.get(6)).toUpperCase());
+                            passingYear.setPassingYear(rowMap.get(columnNamesList.get(12)).toUpperCase());
                             passingYear.setAddedBy("Excel Upload");
                             passingYearDao.save(passingYear);
                             resourceDetails.setPassingYear(passingYear);
                         }
                         resourceDetails.setCGPA(
-                                "NA".equals(rowMap.get(columnNamesList.get(7))) ? new Double(0) : Double.parseDouble(rowMap.get(columnNamesList.get(7)))
+                                "NA".equals(rowMap.get(columnNamesList.get(13))) ? new Double(0) : Double.parseDouble(rowMap.get(columnNamesList.get(13)))
                         );
 
                         try {
                             resourceDetails.setAirRank(
-                                    "NA".equals(rowMap.get(columnNamesList.get(8))) ? new Integer(0) : Integer.parseInt(rowMap.get(columnNamesList.get(8)))
+                                    "NA".equals(rowMap.get(columnNamesList.get(14))) ? new Integer(0) : Integer.parseInt(rowMap.get(columnNamesList.get(14)))
                             );
                         } catch (NumberFormatException nfe){
-                            resourceDetails.setOtherRank(rowMap.get(columnNamesList.get(8)));
+                            resourceDetails.setOtherRank(rowMap.get(columnNamesList.get(14)));
                         }
 
-                        resourceDetails.setAreaOfExpertise(rowMap.get(columnNamesList.get(9)));
-                        resourceDetails.setSkills(rowMap.get(columnNamesList.get(10)));
-                        resourceDetails.setDesignation(rowMap.get(columnNamesList.get(11)));
-                        resourceDetails.setCompany(rowMap.get(columnNamesList.get(12)));
-                        if ("NA".equals(rowMap.get(columnNamesList.get(13)))) {
+                        resourceDetails.setAreaOfExpertise(rowMap.get(columnNamesList.get(15)));
+                        resourceDetails.setSkills(rowMap.get(columnNamesList.get(16)));
+                        resourceDetails.setDesignation(rowMap.get(columnNamesList.get(17)));
+                        resourceDetails.setCompany(rowMap.get(columnNamesList.get(18)));
+                        if ("NA".equals(rowMap.get(columnNamesList.get(19)))) {
                             resourceDetails.setExperience(0);
                         } else {
-                            String experience = rowMap.get(columnNamesList.get(13));
+                            String experience = rowMap.get(columnNamesList.get(19));
                             if(experience.indexOf("~") != -1) {
                                 experience = experience.replaceAll("~", "");
                             }
@@ -192,11 +263,12 @@ public class ResourceServiceImpl implements ResourceService {
                             }
                             resourceDetails.setExperience(Integer.parseInt(experience.trim()));
                         }
-                        resourceDetails.setCTC(rowMap.get(columnNamesList.get(14)));
-                        if("NA".equals(rowMap.get(columnNamesList.get(15)))) {
+                        resourceDetails.setFixedCTC(rowMap.get(columnNamesList.get(20)));
+                        resourceDetails.setVariableCTC(rowMap.get(columnNamesList.get(21)));
+                        if("NA".equals(rowMap.get(columnNamesList.get(22)))) {
                             resourceDetails.setNoticePeriod(0);
                         } else {
-                            String noticePeriod = rowMap.get(columnNamesList.get(15));
+                            String noticePeriod = rowMap.get(columnNamesList.get(22));
                             noticePeriod = noticePeriod.toUpperCase().trim();
                             if(noticePeriod.indexOf(" ") != -1) {
                                 noticePeriod = noticePeriod.substring(0, noticePeriod.indexOf(" "));
@@ -208,27 +280,29 @@ public class ResourceServiceImpl implements ResourceService {
                         }
 
 
-                        if (locationDao.findByName(rowMap.get(columnNamesList.get(16))) != null) {
-                            resourceDetails.setCurrentLocation(locationDao.findByName(rowMap.get(columnNamesList.get(16))));
+                        if (locationDao.findByName(rowMap.get(columnNamesList.get(23))) != null) {
+                            resourceDetails.setCurrentLocation(locationDao.findByName(rowMap.get(columnNamesList.get(23))));
                         } else {
                             location = new Location();
-                            location.setLocationName(rowMap.get(columnNamesList.get(16)).toUpperCase());
+                            location.setLocationName(rowMap.get(columnNamesList.get(23)).toUpperCase());
                             location.setAddedBy("Excel Upload");
                             locationDao.save(location);
                             resourceDetails.setCurrentLocation(location);
                         }
 
-                        if (locationDao.findByName(rowMap.get(columnNamesList.get(17))) != null) {
-                            resourceDetails.setPreferredLocation(locationDao.findByName(rowMap.get(columnNamesList.get(17))));
+                        if (locationDao.findByName(rowMap.get(columnNamesList.get(24))) != null) {
+                            resourceDetails.setPreferredLocation(locationDao.findByName(rowMap.get(columnNamesList.get(24))));
                         } else {
                             location = new Location();
-                            location.setLocationName(rowMap.get(columnNamesList.get(17)).toUpperCase());
+                            location.setLocationName(rowMap.get(columnNamesList.get(24)).toUpperCase());
                             location.setAddedBy("Excel Upload");
                             locationDao.save(location);
                             resourceDetails.setPreferredLocation(location);
                         }
 
-                        resourceDetails.setLinkedinProfile(rowMap.get(columnNamesList.get(18)));
+                        resourceDetails.setExpectedCTC(rowMap.get(columnNamesList.get(26)));
+
+                        resourceDetails.setLinkedinProfile(rowMap.get(columnNamesList.get(27)));
                         resourceDetails.setAddedBy("Excel Upload");
                         resourceDetails.setAddedDate(new Date());
                         logger.info("Persisting resource to database {}", resourceDetails.toString());

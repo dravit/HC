@@ -14,6 +14,8 @@ public interface ResourceService {
 
     ResourceDetails findById(int id);
 
+    ResourceDetails findByEmail(String emailID);
+
     void save(ResourceDetails resourceDetails);
 
     void update(ResourceDetails resourceDetails);
