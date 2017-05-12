@@ -20,7 +20,7 @@
                 <h5>Client History</h5>
             </header>
             <div id="collapse4" class="body">
-                <table id="dataTable"
+                <table id="dataTableClientHistory"
                        class="table table-condensed table-hover table-striped">
                     <thead>
                     <tr>
@@ -28,6 +28,7 @@
                         <th>Status</th>
                         <th>Recruiter</th>
                         <th>Added Date</th>
+                        <th>Client Remarks</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -37,6 +38,7 @@
                             <td>${clientHistory.clientStatus.clientStatusName}</td>
                             <td>${clientHistory.addedBy}</td>
                             <td>${clientHistory.addedDate}</td>
+                            <td>${clientHistory.remarks}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
@@ -44,10 +46,11 @@
             </div>
         </div>
     </div>
+</div>
 </body>
 <script>
-    $(function () {
-        jQuery.colorbox().MetisTable();
+    $(document).ready(function() {
+        $('#dataTableClientHistory').dataTable();
     });
 </script>
 </html>

@@ -45,6 +45,22 @@
                         </span>
                     </div>
 
+                    <div class="form-group">
+                        <label for="position" class="control-label col-lg-3">Position</label>
+
+                        <span class="col-lg-3">
+                            <form:input type="text" path="position" id="position" placeholder="Position"
+                                        class="form-control"/>
+                        </span>
+
+                        <label for="remarks" class="control-label col-lg-3">Client Remarks</label>
+
+                        <span class="col-lg-3">
+                            <form:input type="text" path="remarks" id="remarks"
+                                        placeholder="Client Remarks" class="form-control"/>
+                        </span>
+                    </div>
+
                     <div class="form-actions no-margin-bottom">
                         <input type="submit" value="Add History" class="btn btn-primary">
                     </div>
