@@ -11,9 +11,8 @@
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
-<body class="view">
-<div class="row">
-    <div class="col-lg-12">
+<body>
+    <div class="col-lg-12" style="max-height: 800px; min-height: 500px;">
         <div class="box">
             <header>
                 <div class="icons"><i class="fa fa-table"></i></div>
@@ -25,6 +24,7 @@
                     <thead>
                     <tr>
                         <th>Client</th>
+                        <th>Position</th>
                         <th>Status</th>
                         <th>Recruiter</th>
                         <th>Added Date</th>
@@ -34,10 +34,11 @@
                     <tbody>
                     <c:forEach items="${clientHistoryList}" var="clientHistory">
                         <tr>
-                            <td>${clientHistory.client.clientName}</td>
-                            <td>${clientHistory.clientStatus.clientStatusName}</td>
-                            <td>${clientHistory.addedBy}</td>
-                            <td>${clientHistory.addedDate}</td>
+                            <td nowrap="nowrap">${clientHistory.client.clientName}</td>
+                            <td nowrap="nowrap">${clientHistory.position}</td>
+                            <td nowrap="nowrap">${clientHistory.clientStatus.clientStatusName}</td>
+                            <td nowrap="nowrap">${clientHistory.addedBy}</td>
+                            <td nowrap="nowrap">${clientHistory.addedDate}</td>
                             <td>${clientHistory.remarks}</td>
                         </tr>
                     </c:forEach>
@@ -45,12 +46,12 @@
                 </table>
             </div>
         </div>
-    </div>
 </div>
 </body>
+</html>
+
 <script>
     $(document).ready(function() {
         $('#dataTableClientHistory').dataTable();
     });
 </script>
-</html>

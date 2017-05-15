@@ -146,10 +146,25 @@
                             <form:input type="text" path="experience" id="experience" placeholder="Experience"
                                         class="form-control"/>
                         </span>
-                        <label for="CTC" class="control-label col-lg-3">CTC</label>
+                        <label for="fixedCTC" class="control-label col-lg-3">Fixed CTC</label>
 
                         <span class="col-lg-3">
-                            <form:input type="text" path="CTC" id="CTC" placeholder="CTC"
+                            <form:input type="text" path="fixedCTC" id="fixedCTC" placeholder="Fixed CTC"
+                                        class="form-control"/>
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="variableCTC" class="control-label col-lg-3">Variable CTC</label>
+
+                        <span class="col-lg-3">
+                            <form:input type="text" path="variableCTC" id="variableCTC" placeholder="Variable CTC"
+                                        class="form-control"/>
+                        </span>
+                        <label for="expectedCTC" class="control-label col-lg-3">Expected CTC</label>
+
+                        <span class="col-lg-3">
+                            <form:input type="text" path="expectedCTC" id="expectedCTC" placeholder="Expected CTC"
                                         class="form-control"/>
                         </span>
                     </div>

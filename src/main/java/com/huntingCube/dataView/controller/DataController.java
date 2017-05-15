@@ -22,7 +22,7 @@ import java.util.ListIterator;
  * Created by dgup27 on 1/10/2017.
  */
 @Controller
-@SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams", "clients", "clientStatuses"})
+@SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams", "clients", "clientStatuses", "clientPositions"})
 public class DataController {
 
     static final Logger logger = LoggerFactory.getLogger(DataController.class);
@@ -57,6 +57,9 @@ public class DataController {
     @Autowired
     ClientHistoryService clientHistoryService;
 
+    @Autowired
+    ClientPositionService clientPositionService;
+
     @ModelAttribute("institutes")
     public List<Institute> initializeInstitutes() {
         return instituteService.findAllInstitutes();
@@ -90,6 +93,11 @@ public class DataController {
     @ModelAttribute("clientStatuses")
     public List<ClientStatus> initializeClientStatues() {
         return clientStatusService.findAllStatus();
+    }
+
+    @ModelAttribute("clientPositions")
+    public List<ClientPosition> initializeClientPositions() {
+        return clientPositionService.findAllPositions();
     }
 
     /**
@@ -244,9 +252,6 @@ public class DataController {
         return "redirect:/clientList";
     }
 
-    /**
-     * This method will list all existing users.
-     */
     @RequestMapping(value = {"/clientStatusList"}, method = RequestMethod.GET)
     public String clientStatusList(ModelMap model) {
 
@@ -299,6 +304,59 @@ public class DataController {
         clientStatus.setAddedBy((String)model.get("userSSOId"));
         clientStatusService.updateClientStatus(clientStatus);
         return "redirect:/clientStatusList";
+    }
+
+    @RequestMapping(value = {"/clientPositionList"}, method = RequestMethod.GET)
+    public String clientPositionList(ModelMap model) {
+
+        List<ClientPosition> clientPosition = clientPositionService.findAllPositions();
+        model.addAttribute("clientPosition", clientPosition);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/clientPositionList";
+    }
+
+    @RequestMapping(value = {"/addClientPosition"}, method = RequestMethod.POST)
+    public String saveClientPosition(@Valid ClientPosition clientPosition, BindingResult result,
+                                   ModelMap model) {
+        try {
+            HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+            if (result.hasErrors()) {
+                logger.info("Error in result");
+            }
+            clientPositionService.save(clientPosition);
+        } catch (Exception e) {
+            logger.error("Error while saving Client Position", e);
+        }
+        return "redirect:/clientPositionList";
+    }
+
+    @RequestMapping(value = {"/addClientPosition"}, method = RequestMethod.GET)
+    public String addClientPosition(ModelMap model) {
+        ClientPosition clientPosition = new ClientPosition();
+        model.addAttribute("clientPosition", clientPosition);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClientPosition";
+    }
+
+    @RequestMapping(value = { "/edit-clientPosition-{clientPositionId}" }, method = RequestMethod.GET)
+    public String editClientPosition(@PathVariable int clientPositionId, ModelMap model) {
+        ClientPosition clientPosition = clientPositionService.findById(clientPositionId);
+        model.addAttribute("clientPosition", clientPosition);
+        model.addAttribute("edit", true);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "dataView/addClientPosition";
+    }
+
+    @RequestMapping(value = {"/edit-clientPosition-{clientPositionId}"}, method = RequestMethod.POST)
+    public String updateClientPosition(@Valid ClientPosition clientPosition, BindingResult result,
+                                     ModelMap model) {
+        if(result.hasErrors()) {
+            return "dataView/addClientPosition";
+        }
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        clientPosition.setAddedBy((String)model.get("userSSOId"));
+        clientPositionService.updateClientPosition(clientPosition);
+        return "redirect:/clientPositionList";
     }
 
     @RequestMapping(value = {"/addClientHistory-{resourceID}"}, method = RequestMethod.GET)

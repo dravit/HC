@@ -56,7 +56,7 @@
                         <label for="remarks" class="control-label col-lg-3">Client Remarks</label>
 
                         <span class="col-lg-3">
-                            <form:input type="text" path="remarks" id="remarks"
+                            <form:input type="textbox" path="remarks" id="remarks"
                                         placeholder="Client Remarks" class="form-control"/>
                         </span>
                     </div>

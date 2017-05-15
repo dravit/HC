@@ -813,7 +813,7 @@
             $title.html(settings.get('title')).show();
             $loaded.show();
 
-            if (total > 1) { // handle grouping
+            if (false) { // handle grouping     //To be check
                 if (typeof settings.get('current') === "string") {
                     $current.html(settings.get('current').replace('{current}', index + 1).replace('{total}', total)).show();
                 }

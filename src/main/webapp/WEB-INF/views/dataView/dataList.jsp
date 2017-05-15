@@ -106,7 +106,10 @@
 
     $(function () {
         $(".resourceData").colorbox({rel: 'resourceData'});
-        $(".addResource").colorbox({rel: 'addResource'});
+        $(".addResource").colorbox({rel: 'addResource',
+            onComplete: function () {
+                $(this).colorbox.resize();
+            }});
         $("#adminPage").removeClass("active");
         $("#data").addClass("active");
         Metis.MetisTable();

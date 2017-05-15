@@ -58,8 +58,14 @@
                     <td>${resourceDetail.experience}</td>
                 </tr>
                 <tr>
-                    <td><b>CTC</b></td>
-                    <td>${resourceDetail.CTC}</td>
+                    <td><b>Fixed CTC</b></td>
+                    <td>${resourceDetail.fixedCTC}</td>
+                    <td><b>Variable CTC</b></td>
+                    <td>${resourceDetail.variableCTC}</td>
+                </tr>
+                <tr>
+                    <td><b>Expected CTC</b></td>
+                    <td>${resourceDetail.expectedCTC}</td>
                     <td><b>Notice Period</b></td>
                     <td>${resourceDetail.noticePeriod}</td>
                 </tr>
