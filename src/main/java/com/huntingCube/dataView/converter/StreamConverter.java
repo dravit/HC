@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.Stream;
 import com.huntingCube.dataView.service.StreamService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,12 @@ public class StreamConverter implements Converter<Object, Stream> {
 
     @Override
     public Stream convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        Stream stream = streamService.findById(id);
-        return stream;
+        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            Stream stream = streamService.findById(id);
+            return stream;
+        } else {
+            return null;
+        }
     }
 }

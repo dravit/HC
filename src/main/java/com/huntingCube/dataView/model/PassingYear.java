@@ -38,4 +38,12 @@ public class PassingYear extends BaseEntity implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "PassingYear{" +
+                "id=" + id +
+                ", passingYear='" + passingYear + '\'' +
+                '}';
+    }
 }

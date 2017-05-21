@@ -5,19 +5,17 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by dgup27 on 1/8/2017.
  */
 @Entity
-@Table(name = "RESOURCE_DETAILS")
-public class ResourceDetails extends BaseEntity implements Serializable {
+@Table(name = "RESOURCE_DETAILS_HISTORY")
+public class ResourceHistoryDetails extends BaseEntity implements Serializable {
 
-    @javax.persistence.Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "RESOURCE_ID")
+    @Column(name = "RESOURCE_HISTORY_ID")
     private int id;
 
     @NotEmpty
@@ -301,7 +299,7 @@ public class ResourceDetails extends BaseEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "ResourceDetails{" +
+        return "ResourceHistoryDetails{" +
                 "name='" + name + '\'' +
                 ", contactNumber='" + contactNumber + '\'' +
                 ", emailId='" + emailId + '\'' +

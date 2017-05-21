@@ -117,10 +117,10 @@
                         </span>
                         <label for="skills" class="control-label col-lg-3">Skills</label>
 
-                        <div class="col-lg-3">
+                        <span class="col-lg-3">
                             <form:input type="text" path="skills" id="skills" placeholder="Skills"
                                         class="form-control"/>
-                        </div>
+                        </span>
                     </div>
 
                     <div class="form-group">
@@ -133,10 +133,10 @@
 
                         <label for="company" class="control-label col-lg-3">Company</label>
 
-                        <div class="col-lg-3">
+                        <span class="col-lg-3">
                             <form:input type="text" path="company" id="company" placeholder="Company"
                                         class="form-control"/>
-                        </div>
+                        </span>
                     </div>
 
                     <div class="form-group">
@@ -205,20 +205,27 @@
                     <div class="form-group">
                         <label for="facebookProfile" class="control-label col-lg-3">Facebook Profile</label>
 
-                        <div class="col-lg-9">
+                        <span class="col-lg-9">
                             <form:input type="text" path="facebookProfile" id="facebookProfile"
                                         placeholder="Facebook Profile"
                                         class="form-control"/>
-                        </div>
+                        </span>
                     </div>
 
                     <div class="form-actions no-margin-bottom">
                         <c:choose>
-                            <c:when test="${edit}">
-                                <input type="submit" value="Update Resource" class="btn btn-primary">
+                            <c:when test="${fromAddClientHistory}">
+                                <input type="submit" value="Update and Send to Client" class="btn btn-primary">
                             </c:when>
                             <c:otherwise>
-                                <input type="submit" value="Add Resource" class="btn btn-primary">
+                                <c:choose>
+                                    <c:when test="${edit}">
+                                        <input type="submit" value="Update Resource" class="btn btn-primary">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <input type="submit" value="Add Resource" class="btn btn-primary">
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>

@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.PassingYear;
 import com.huntingCube.dataView.service.PassingYearService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,12 @@ public class PassingYearConverter implements Converter<Object, PassingYear> {
 
     @Override
     public PassingYear convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        PassingYear passingYear = passingYearService.findById(id);
-        return passingYear;
+        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            PassingYear passingYear = passingYearService.findById(id);
+            return passingYear;
+        } else {
+            return null;
+        }
     }
 }

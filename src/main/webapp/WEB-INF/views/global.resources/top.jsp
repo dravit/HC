@@ -48,7 +48,7 @@
                             <li><a href="<c:url value='/edit-user-${userSSOId}' />">Edit Details</a></li>
                         </ul>
                     </li>
-
+                    <li id="report"><a href="<c:url value='/report' />">Reports</a></li>
                     <%--<li><a href="file.html">File Manager</a></li>
                     <li class='dropdown '>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -68,14 +68,19 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-<%--
 <script>
-    $(document).bind("contextmenu",function(e) {
+    function openColorBox(url) {
+        alert(url);
+        url = ${pageContext.request.contextPath} + '/' + url;
+        $.colorbox({href:url});
+    }
+
+    /*$(document).bind("contextmenu",function(e) {
         e.preventDefault();
     });
     $(document).keydown(function(e){
         if(e.which === 123){
             return false;
         }
-    });
-</script>--%>
+    });*/
+</script>

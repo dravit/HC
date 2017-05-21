@@ -10,7 +10,7 @@
 </head>
 
 <body>
-<div class="col-lg-12" style="width:768px;">
+<div class="col-lg-12 resourceDetail" style="width:768px;">
     <div class="box">
         <div id="collapse4" class="body">
             <table class="table table-striped responsive-table">
@@ -89,4 +89,9 @@
     </div>
 </div>
 </body>
+<script>
+    $(document).ready(function(){
+        parent.jQuery.colorbox({inline:true, href:".resourceDetail"});
+    });
+</script>
 </html>

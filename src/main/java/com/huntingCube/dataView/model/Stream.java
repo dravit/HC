@@ -38,4 +38,12 @@ public class Stream extends BaseEntity implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Stream{" +
+                "id=" + id +
+                ", streamName='" + streamName + '\'' +
+                '}';
+    }
 }

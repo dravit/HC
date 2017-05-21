@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.Institute;
 import com.huntingCube.dataView.service.InstituteService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,13 @@ public class InstituteConverter implements Converter<Object, Institute> {
      */
     @Override
     public Institute convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        Institute institute = instituteService.findById(id);
-        logger.info("Institute : {}", institute);
-        return institute;
+        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            Institute institute = instituteService.findById(id);
+            logger.info("Institute : {}", institute);
+            return institute;
+        } else {
+            return null;
+        }
     }
 }

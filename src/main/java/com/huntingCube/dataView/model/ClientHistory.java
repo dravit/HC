@@ -33,6 +33,10 @@ public class ClientHistory extends BaseEntity implements Serializable {
     @Column(name = "RESOURCE_ID", nullable = false)
     private int resourceID;
 
+    @NotNull
+    @Column(name = "RESOURCE_HISTORY_ID", nullable = false)
+    private int resourceHistoryID;
+
     @Column(name = "ADDED_DATE")
     private Date addedDate;
 
@@ -74,6 +78,14 @@ public class ClientHistory extends BaseEntity implements Serializable {
         this.resourceID = resourceID;
     }
 
+    public int getResourceHistoryID() {
+        return resourceHistoryID;
+    }
+
+    public void setResourceHistoryID(int resourceHistoryID) {
+        this.resourceHistoryID = resourceHistoryID;
+    }
+
     public Date getAddedDate() {
         return addedDate;
     }
@@ -105,6 +117,7 @@ public class ClientHistory extends BaseEntity implements Serializable {
                 ", client=" + client +
                 ", clientStatus=" + clientStatus +
                 ", resourceID=" + resourceID +
+                ", resourceHistoryID=" + resourceHistoryID +
                 ", addedDate=" + addedDate +
                 ", remarks='" + remarks + '\'' +
                 ", position='" + position + '\'' +

@@ -5,7 +5,6 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
-
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Client History</title>
@@ -28,6 +27,9 @@
 
                     <form:input type="hidden" path="addedBy" id="addedBy" value="${userSSOId}"/>
 
+                    <form:input type="hidden" path="resourceID" id="resourceID"/>
+
+                    <form:input type="hidden" path="resourceHistoryID" id="resourceHistoryID"/>
 
                     <div class="form-group">
                         <label for="client" class="control-label col-lg-3">Client</label>
@@ -73,4 +75,9 @@
 
 </body>
 
+<script>
+    $(document).ready(function(){
+        $.colorbox({inline:true, href:".row"});
+    });
+</script>
 </html>

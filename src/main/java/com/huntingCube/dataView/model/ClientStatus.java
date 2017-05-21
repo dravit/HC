@@ -38,4 +38,12 @@ public class ClientStatus extends BaseEntity implements Serializable {
     public void setClientStatusName(String clientStatusName) {
         this.clientStatusName = clientStatusName;
     }
+
+    @Override
+    public String toString() {
+        return "ClientStatus{" +
+                "id=" + id +
+                ", clientStatusName='" + clientStatusName + '\'' +
+                '}';
+    }
 }

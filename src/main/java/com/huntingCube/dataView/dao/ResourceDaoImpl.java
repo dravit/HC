@@ -53,18 +53,46 @@ public class ResourceDaoImpl extends AbstractDao<Integer, ResourceDetails> imple
 
     @Override
     public List<ResourceDetails> findResources(int maxRecords, ResourceDetails resourceDetails) {
-        if (resourceDetails.getName().isEmpty() && resourceDetails.getContactNumber().isEmpty() && resourceDetails.getEmailId().isEmpty()) {
-            return null;
-        }
         Criteria criteria = createEntityCriteria();
-        if (!resourceDetails.getName().isEmpty()) {
+        if (HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getName())) {
             criteria.add(Restrictions.ilike("name", resourceDetails.getName(), MatchMode.ANYWHERE));
         }
-        if (!resourceDetails.getContactNumber().isEmpty()) {
+        if (HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getContactNumber())) {
             criteria.add(Restrictions.ilike("contactNumber", resourceDetails.getContactNumber(), MatchMode.ANYWHERE));
         }
-        if (!resourceDetails.getEmailId().isEmpty()) {
+        if (HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getEmailId())) {
             criteria.add(Restrictions.ilike("emailId", resourceDetails.getEmailId(), MatchMode.ANYWHERE));
+        }
+        if(resourceDetails.getInstitute() != null) {
+            criteria.add((Restrictions.eq("institute", resourceDetails.getInstitute())));
+        }
+        if(resourceDetails.getStream() != null) {
+            criteria.add((Restrictions.eq("stream", resourceDetails.getStream())));
+        }
+        if(resourceDetails.getProgram() != null) {
+            criteria.add((Restrictions.eq("program", resourceDetails.getProgram())));
+        }
+        if(resourceDetails.getPassingYear() != null) {
+            criteria.add((Restrictions.eq("passingYear", resourceDetails.getPassingYear())));
+        }
+        if(resourceDetails.getNoticePeriod() != 0.0) {
+            criteria.add((Restrictions.le("noticePeriod", resourceDetails.getNoticePeriod())));
+        }
+        if(resourceDetails.getExperience() != 0.0) {
+            criteria.add((Restrictions.ge("experience", resourceDetails.getExperience())));
+        }
+        if(resourceDetails.getFixedCTC() != 0.0) {
+            criteria.add((Restrictions.le("fixedCTC", resourceDetails.getFixedCTC())));
+        }
+        if(resourceDetails.getExpectedCTC() != 0.0) {
+            criteria.add((Restrictions.le("expectedCTC", resourceDetails.getExpectedCTC())));
+        }
+        if(resourceDetails.getVariableCTC() != 0.0) {
+            criteria.add((Restrictions.le("variableCTC", resourceDetails.getVariableCTC())));
+        }
+        logger.info("criteria.list().size()>>>>>>>>>>>"+criteria.list().size());
+        if(criteria.list().size() < 1) {
+            return null;
         }
         criteria.addOrder(Order.asc("name"));
         //criteria.setMaxResults(maxRecords);

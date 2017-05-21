@@ -62,72 +62,6 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     public void save(ResourceDetails resourceDetails) {
-        /*ResourceDetails resourceByEmail = findByEmail(resourceDetails.getEmailId());
-        resourceByEmail = resourceDao.findById(resourceByEmail.getId());
-        if(resourceByEmail != null) {
-            try {
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getName()))
-                    resourceByEmail.setName(resourceDetails.getName());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getContactNumber()))
-                    resourceByEmail.setContactNumber(resourceByEmail.getContactNumber() + " / " + resourceDetails.getContactNumber());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getInstitute().getInstituteName()))
-                    resourceByEmail.setInstitute(resourceDetails.getInstitute());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getStream().getStreamName()))
-                    resourceByEmail.setStream(resourceDetails.getStream());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getProgram().getProgramName()))
-                    resourceByEmail.setProgram(resourceDetails.getProgram());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getPassingYear().getPassingYear()))
-                    resourceByEmail.setPassingYear(resourceDetails.getPassingYear());
-
-                resourceByEmail.setCGPA(resourceDetails.getCGPA());
-
-                resourceByEmail.setAirRank(resourceDetails.getAirRank());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getOtherRank()))
-                    resourceByEmail.setOtherRank(resourceDetails.getOtherRank());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getAreaOfExpertise()))
-                    resourceByEmail.setAreaOfExpertise(resourceDetails.getAreaOfExpertise());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getSkills()))
-                    resourceByEmail.setSkills(resourceDetails.getSkills());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getDesignation()))
-                    resourceByEmail.setDesignation(resourceDetails.getDesignation());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCompany()))
-                    resourceByEmail.setCompany(resourceDetails.getCompany());
-
-                resourceByEmail.setExperience(resourceDetails.getExperience());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCTC()))
-                    resourceByEmail.setCTC(resourceDetails.getCTC());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getCurrentLocation().getLocationName()))
-                    resourceByEmail.setCurrentLocation(resourceDetails.getCurrentLocation());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getPreferredLocation().getLocationName()))
-                    resourceByEmail.setPreferredLocation(resourceDetails.getPreferredLocation());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getLinkedinProfile()))
-                    resourceByEmail.setLinkedinProfile(resourceDetails.getLinkedinProfile());
-
-                if(HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getFacebookProfile()))
-                    resourceByEmail.setFacebookProfile(resourceDetails.getFacebookProfile());
-
-                resourceByEmail.setAddedDate(resourceDetails.getAddedDate());
-                resourceByEmail.setAddedBy(resourceDetails.getAddedBy());
-            } catch (Exception e) {
-                logger.error("Error while updating resource", e);
-            }
-        } else {
-            resourceDao.save(resourceDetails);
-        }*/
         resourceDao.save(resourceDetails);
     }
 
@@ -263,8 +197,8 @@ public class ResourceServiceImpl implements ResourceService {
                             }
                             resourceDetails.setExperience(Integer.parseInt(experience.trim()));
                         }
-                        resourceDetails.setFixedCTC(rowMap.get(columnNamesList.get(20)));
-                        resourceDetails.setVariableCTC(rowMap.get(columnNamesList.get(21)));
+                        /*resourceDetails.setFixedCTC(rowMap.get(columnNamesList.get(20)));
+                        resourceDetails.setVariableCTC(rowMap.get(columnNamesList.get(21)));*/
                         if("NA".equals(rowMap.get(columnNamesList.get(22)))) {
                             resourceDetails.setNoticePeriod(0);
                         } else {
@@ -300,7 +234,7 @@ public class ResourceServiceImpl implements ResourceService {
                             resourceDetails.setPreferredLocation(location);
                         }
 
-                        resourceDetails.setExpectedCTC(rowMap.get(columnNamesList.get(26)));
+                        /*resourceDetails.setExpectedCTC(rowMap.get(columnNamesList.get(26)));*/
 
                         resourceDetails.setLinkedinProfile(rowMap.get(columnNamesList.get(27)));
                         resourceDetails.setAddedBy("Excel Upload");

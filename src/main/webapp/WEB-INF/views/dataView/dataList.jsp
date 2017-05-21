@@ -76,7 +76,7 @@
                                                     <img src="<c:url value='/static/images/edit-resource.png'/>" width="20" height="20" alt="Edit Resource"/>
                                                 </a>
                                                 <a class="resourceData"
-                                                   href="${pageContext.request.contextPath}/addClientHistory-${resourceDetails.id}"
+                                                   href="${pageContext.request.contextPath}/editAndSendToClient-${resourceDetails.id}"
                                                    title="Send ${resourceDetails.name} to Client">
                                                     <img src="<c:url value='/static/images/send-to-client.png'/>" width="20" height="20" alt="Send to Client"/>
                                                 </a>

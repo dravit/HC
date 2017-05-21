@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <property name="DEV_HOME" value="C:\HuntingCubeData\Logs" />
+  <property name="DEV_HOME" value="C:/HuntingCubeData/Logs" />
 
   <appender name="FILE-AUDIT"
             class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -29,7 +29,7 @@
     <appender-ref ref="FILE-AUDIT" />
   </logger>
 
-  <root level="info">
+  <root level="debug">
     <appender-ref ref="FILE-AUDIT" />
   </root>
 

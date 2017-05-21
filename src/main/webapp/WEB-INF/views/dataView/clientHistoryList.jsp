@@ -20,7 +20,7 @@
             </header>
             <div id="collapse4" class="body">
                 <table id="dataTableClientHistory"
-                       class="table table-condensed table-hover table-striped">
+                       class="table table-bordered table-condensed table-hover table-striped dataTable no-footer">
                     <thead>
                     <tr>
                         <th>Client</th>
@@ -34,7 +34,9 @@
                     <tbody>
                     <c:forEach items="${clientHistoryList}" var="clientHistory">
                         <tr>
-                            <td nowrap="nowrap">${clientHistory.client.clientName}</td>
+                            <td nowrap="nowrap"><a class="resourceData"
+                                                   href="${pageContext.request.contextPath}/resourceHistoryDetails-${clientHistory.resourceHistoryID}"
+                                                   title="Resource History Details for ${resourceDetails.name}">${clientHistory.client.clientName}</a></td>
                             <td nowrap="nowrap">${clientHistory.position}</td>
                             <td nowrap="nowrap">${clientHistory.clientStatus.clientStatusName}</td>
                             <td nowrap="nowrap">${clientHistory.addedBy}</td>

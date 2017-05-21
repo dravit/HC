@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.Program;
 import com.huntingCube.dataView.service.ProgramService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
@@ -17,8 +18,12 @@ public class ProgramConverter implements Converter<Object, Program> {
 
     @Override
     public Program convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        Program program = programService.findById(id);
-        return program;
+        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            Program program = programService.findById(id);
+            return program;
+        } else {
+            return null;
+        }
     }
 }
