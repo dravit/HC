@@ -34,7 +34,7 @@
                     <tbody>
                     <c:forEach items="${clientHistoryList}" var="clientHistory">
                         <tr>
-                            <td nowrap="nowrap"><a class="resourceData"
+                            <td nowrap="nowrap"><a class="resourceHistoryDetails"
                                                    href="${pageContext.request.contextPath}/resourceHistoryDetails-${clientHistory.resourceHistoryID}"
                                                    title="Resource History Details for ${resourceDetails.name}">${clientHistory.client.clientName}</a></td>
                             <td nowrap="nowrap">${clientHistory.position}</td>
@@ -53,7 +53,8 @@
 </html>
 
 <script>
-    $(document).ready(function() {
+    $(function () {
+        $(".resourceHistoryDetails").colorbox({rel: 'resourceHistoryDetails'});
         $('#dataTableClientHistory').dataTable();
     });
 </script>

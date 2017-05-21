@@ -65,17 +65,17 @@
                                             <td nowrap="nowrap">${resourceDetails.stream.streamName}</td>
                                             <td nowrap="nowrap">${resourceDetails.program.programName}</td>
                                             <td width="15%">
-                                                <a class="resourceData"
+                                                <a class="clientHistory"
                                                    href="${pageContext.request.contextPath}/getClientHistory-${resourceDetails.id}"
                                                    title="Client History for ${resourceDetails.name}">
                                                 <img src="<c:url value='/static/images/client-history.png'/>" width="20" height="20" alt="Client History"/>
                                                 </a>
-                                                <a class="resourceData"
+                                                <a class="editResourceData"
                                                    href="${pageContext.request.contextPath}/editResource-${resourceDetails.id}"
                                                    title="Modify Details of ${resourceDetails.name}">
                                                     <img src="<c:url value='/static/images/edit-resource.png'/>" width="20" height="20" alt="Edit Resource"/>
                                                 </a>
-                                                <a class="resourceData"
+                                                <a class="sendToClient"
                                                    href="${pageContext.request.contextPath}/editAndSendToClient-${resourceDetails.id}"
                                                    title="Send ${resourceDetails.name} to Client">
                                                     <img src="<c:url value='/static/images/send-to-client.png'/>" width="20" height="20" alt="Send to Client"/>
@@ -106,6 +106,9 @@
 
     $(function () {
         $(".resourceData").colorbox({rel: 'resourceData'});
+        $(".clientHistory").colorbox({rel: 'clientHistory'});
+        $(".editResourceData").colorbox({rel: 'editResourceData'});
+        $(".sendToClient").colorbox({rel: 'sendToClient'});
         $(".addResource").colorbox({rel: 'addResource',
             onComplete: function () {
                 $(this).colorbox.resize();

@@ -55,6 +55,7 @@ public class ClientHistoryController extends BaseController {
                 logger.info("Error in result");
             }
             resourceService.save(resourceDetails);
+            resourceHistoryDetails.setId(0);
             resourceHistoryService.save(resourceHistoryDetails);
             logger.info("originalResourceID>>>>>>>>>>>>>>>."+resourceID);
             savedResourceID =  resourceHistoryDetails.getId();

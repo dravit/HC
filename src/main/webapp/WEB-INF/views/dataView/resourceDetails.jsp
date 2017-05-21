@@ -90,8 +90,8 @@
 </div>
 </body>
 <script>
-    $(document).ready(function(){
+    /*$(document).ready(function(){
         parent.jQuery.colorbox({inline:true, href:".resourceDetail"});
-    });
+    });*/
 </script>
 </html>

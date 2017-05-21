@@ -36,7 +36,6 @@ public class ResourceDataController extends BaseController {
     @RequestMapping(value = {"/", "/dataList"}, method = RequestMethod.POST)
     public String fetchDataList(ResourceDetails resourceDetails, ModelMap model) {
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
-        logger.info("resourceDetails>>>>>>>>>>>>>>"+resourceDetails);
         List<ResourceDetails> resourceDetailsList = resourceService.findResources(20, resourceDetails);
         model.addAttribute("resourceDetails", resourceDetails);
         model.addAttribute("resourceDetailsList", resourceDetailsList);
@@ -96,7 +95,7 @@ public class ResourceDataController extends BaseController {
         } catch (Exception e) {
             logger.error("Error while saving resource", e);
         }
-        return "redirect:/resourceDetails-"+resourceID;
+        return "redirect:/dataList";
     }
 
     @RequestMapping(value = {"/resourceDetails-{id}"}, method = RequestMethod.GET)
