@@ -18,7 +18,10 @@ public class StreamConverter implements Converter<Object, Stream> {
 
     @Override
     public Stream convert(Object source) {
-        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+        if(source != null && source instanceof Stream) {
+            return (Stream) source;
+        }
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
             Integer id = Integer.parseInt((String) source);
             Stream stream = streamService.findById(id);
             return stream;

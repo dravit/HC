@@ -18,7 +18,10 @@ public class ProgramConverter implements Converter<Object, Program> {
 
     @Override
     public Program convert(Object source) {
-        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+        if(source != null && source instanceof Program) {
+            return (Program) source;
+        }
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
             Integer id = Integer.parseInt((String) source);
             Program program = programService.findById(id);
             return program;

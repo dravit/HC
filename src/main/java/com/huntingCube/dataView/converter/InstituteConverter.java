@@ -28,7 +28,12 @@ public class InstituteConverter implements Converter<Object, Institute> {
      */
     @Override
     public Institute convert(Object source) {
-        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+        if(source != null && source instanceof Institute) {
+            logger.info("(Institute) source>>>>>>>>>>>>>"+(Institute) source);
+            return (Institute) source;
+        }
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            logger.info("(String) source>>>>>>>>>>>>"+(String) source);
             Integer id = Integer.parseInt((String) source);
             Institute institute = instituteService.findById(id);
             logger.info("Institute : {}", institute);

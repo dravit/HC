@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.Location;
 import com.huntingCube.dataView.service.LocationService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +22,15 @@ public class LocationConverter implements Converter<Object, Location> {
 
     @Override
     public Location convert(Object source) {
-        Integer id = Integer.parseInt((String) source);
-        Location location = locationService.findById(id);
-        return location;
+        if(source != null && source instanceof Location) {
+            return (Location) source;
+        }
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            Location location = locationService.findById(id);
+            return location;
+        } else {
+            return null;
+        }
     }
 }

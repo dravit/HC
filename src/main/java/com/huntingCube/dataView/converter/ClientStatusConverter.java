@@ -2,6 +2,7 @@ package com.huntingCube.dataView.converter;
 
 import com.huntingCube.dataView.model.ClientStatus;
 import com.huntingCube.dataView.service.ClientStatusService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,13 @@ public class ClientStatusConverter implements Converter<Object, ClientStatus> {
         if(source != null && source instanceof ClientStatus) {
             return (ClientStatus) source;
         }
-        Integer id = Integer.parseInt((String) source);
-        ClientStatus clientStatus = clientStatusService.findById(id);
-        logger.info("Client Status : {}", clientStatus);
-        return clientStatus;
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+            Integer id = Integer.parseInt((String) source);
+            ClientStatus clientStatus = clientStatusService.findById(id);
+            logger.info("Client Status : {}", clientStatus);
+            return clientStatus;
+        } else {
+            return null;
+        }
     }
 }

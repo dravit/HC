@@ -18,7 +18,10 @@ public class PassingYearConverter implements Converter<Object, PassingYear> {
 
     @Override
     public PassingYear convert(Object source) {
-        if(HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
+        if(source != null && source instanceof PassingYear) {
+            return (PassingYear) source;
+        }
+        if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
             Integer id = Integer.parseInt((String) source);
             PassingYear passingYear = passingYearService.findById(id);
             return passingYear;
