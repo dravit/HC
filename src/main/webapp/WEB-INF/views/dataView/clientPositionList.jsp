@@ -23,7 +23,7 @@
                             <header>
                                 <div class="icons"><i class="fa fa-table"></i></div>
                                 <h5>List Of Client Positions</h5>
-                                <span><a href="<c:url value='/addClientPosition' />" style="float:right; margin-right:10px; padding-top: 5px">Add Client Status</a></span>
+                                <span><a href="<c:url value='/addClientPosition' />" style="float:right; margin-right:10px; padding-top: 5px">Add Client Position</a></span>
                             </header>
                             <div id="collapse4" class="body">
                                 <table id="dataTable"
@@ -36,7 +36,7 @@
                                     <tbody>
                                     <c:forEach items="${clientPosition}" var="clientPosition">
                                         <tr>
-                                            <td>${clientPosition.clientStatusName}</td>
+                                            <td>${clientPosition.clientPosition}</td>
                                             <sec:authorize access="hasRole('ADMIN')">
                                                 <td style="float: right;"><a href="<c:url value='/edit-clientPosition-${clientPosition.id}' />" class="btn btn-success custom-width">Edit</a>
                                                     <a href="<c:url value='/delete-clientPosition-${clientPosition.id}' />" class="btn btn-danger custom-width">Delete</a></td>
