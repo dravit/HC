@@ -17,6 +17,8 @@ public interface InstituteService {
 
     void save(Institute institute);
 
+    void updateInstitute(Institute institute);
+
     void deleteById(int id);
 
 }

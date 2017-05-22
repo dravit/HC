@@ -17,5 +17,7 @@ public interface StreamService {
 
     void save(Stream stream);
 
+    void updateStream(Stream stream);
+
     void deleteById(int id);
 }

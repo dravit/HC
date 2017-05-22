@@ -66,6 +66,7 @@ public class ResourceHistoryServiceImpl implements ResourceHistoryService {
         } else {
             resourceDao.save(resourceDetails);
         }*/
+        logger.info("resourceDetails>>>>>>>>>>>"+resourceDetails);
         resourceDao.save(resourceDetails);
     }
 
@@ -84,6 +85,8 @@ public class ResourceHistoryServiceImpl implements ResourceHistoryService {
 
         if (HuntingCubeUtility.isNotEmptyOrNull(resourceDetails.getContactNumber()))
             resourceHistoryDetails.setContactNumber(resourceHistoryDetails.getContactNumber() + " / " + resourceDetails.getContactNumber());
+
+        resourceHistoryDetails.setEmailId(resourceDetails.getEmailId());
 
         resourceHistoryDetails.setInstitute(resourceDetails.getInstitute());
 

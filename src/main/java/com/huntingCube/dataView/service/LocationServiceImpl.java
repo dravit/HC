@@ -39,6 +39,15 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    public void updateLocation(Location location) {
+        Location entity = locationDao.findById(location.getId());
+        if(entity != null) {
+            entity.setLocationName(location.getLocationName());
+            entity.setAddedBy(location.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         locationDao.deleteById(id);
     }

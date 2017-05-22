@@ -39,6 +39,15 @@ public class PassingYearServiceImpl implements PassingYearService {
     }
 
     @Override
+    public void updatePassingYear(PassingYear passingYear) {
+        PassingYear entity = passingYearDao.findById(passingYear.getId());
+        if(entity != null) {
+            entity.setPassingYear(passingYear.getPassingYear());
+            entity.setAddedBy(passingYear.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         passingYearDao.deleteById(id);
     }

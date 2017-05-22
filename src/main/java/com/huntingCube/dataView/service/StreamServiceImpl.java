@@ -39,6 +39,15 @@ public class StreamServiceImpl implements StreamService {
     }
 
     @Override
+    public void updateStream(Stream stream) {
+        Stream entity = streamDao.findById(stream.getId());
+        if(entity != null) {
+            entity.setStreamName(stream.getStreamName());
+            entity.setAddedBy(stream.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         streamDao.deleteById(id);
     }

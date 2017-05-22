@@ -17,5 +17,7 @@ public interface PassingYearService {
 
     void save(PassingYear passingYear);
 
+    void updatePassingYear(PassingYear passingYear);
+
     void deleteById(int id);
 }

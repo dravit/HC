@@ -17,5 +17,7 @@ public interface ProgramService {
 
     void save(Program program);
 
+    void updateProgram(Program program);
+
     void deleteById(int id);
 }

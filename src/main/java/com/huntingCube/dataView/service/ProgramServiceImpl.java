@@ -39,6 +39,15 @@ public class ProgramServiceImpl implements ProgramService {
     }
 
     @Override
+    public void updateProgram(Program program) {
+        Program entity = programDao.findById(program.getId());
+        if(entity != null) {
+            entity.setProgramName(program.getProgramName());
+            entity.setAddedBy(program.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         programDao.deleteById(id);
     }

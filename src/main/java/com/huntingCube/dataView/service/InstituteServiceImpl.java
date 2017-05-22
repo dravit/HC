@@ -39,6 +39,15 @@ public class InstituteServiceImpl implements InstituteService {
     }
 
     @Override
+    public void updateInstitute(Institute institute) {
+        Institute entity = instituteDao.findById(institute.getId());
+        if(entity != null) {
+            entity.setInstituteName(institute.getInstituteName());
+            entity.setAddedBy(institute.getAddedBy());
+        }
+    }
+
+    @Override
     public void deleteById(int id) {
         instituteDao.deleteById(id);
     }
