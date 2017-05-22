@@ -53,6 +53,7 @@ public class ResourceDataController extends BaseController {
     @RequestMapping(value = {"/addResource"}, method = RequestMethod.GET)
     public String addResource(ModelMap model) {
         ResourceDetails resourceDetails = new ResourceDetails();
+        logger.info("resourceDetails>>>>>>>>>>>>>"+resourceDetails.toString());
         model.addAttribute("resourceDetails", resourceDetails);
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         return "dataView/addResource";

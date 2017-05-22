@@ -3,6 +3,8 @@ package com.huntingCube.dataView.controller;
 import com.huntingCube.dataView.model.*;
 import com.huntingCube.dataView.service.*;
 import com.huntingCube.login.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -14,6 +16,8 @@ import java.util.List;
  */
 @SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams", "clients", "clientStatuses", "clientPositions"})
 public abstract class BaseController {
+
+    static final Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Autowired
     UserService userService;
