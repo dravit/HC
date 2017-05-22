@@ -46,4 +46,19 @@ public class Location extends BaseEntity implements Serializable {
                 ", locationName='" + locationName + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Location location = (Location) o;
+
+        return locationName.equals(location.locationName);
+    }
+
+    @Override
+    public int hashCode() {
+        return locationName.hashCode();
+    }
 }

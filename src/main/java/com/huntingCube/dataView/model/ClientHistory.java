@@ -29,6 +29,10 @@ public class ClientHistory extends BaseEntity implements Serializable {
     @JoinColumn(name = "CLIENT_STATUS_ID")
     private ClientStatus clientStatus;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "CLIENT_POSITION_ID")
+    private ClientPosition clientPosition;
+
     @NotNull
     @Column(name = "RESOURCE_ID", nullable = false)
     private int resourceID;
@@ -42,9 +46,6 @@ public class ClientHistory extends BaseEntity implements Serializable {
 
     @Column(name = "CLIENT_REMARKS")
     private String remarks;
-
-    @Column(name = "POSITION")
-    private String position;
 
     public int getId() {
         return id;
@@ -102,12 +103,12 @@ public class ClientHistory extends BaseEntity implements Serializable {
         this.remarks = remarks;
     }
 
-    public String getPosition() {
-        return position;
+    public ClientPosition getClientPosition() {
+        return clientPosition;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setClientPosition(ClientPosition clientPosition) {
+        this.clientPosition = clientPosition;
     }
 
     @Override
@@ -116,11 +117,11 @@ public class ClientHistory extends BaseEntity implements Serializable {
                 "id=" + id +
                 ", client=" + client +
                 ", clientStatus=" + clientStatus +
+                ", clientPosition=" + clientPosition +
                 ", resourceID=" + resourceID +
                 ", resourceHistoryID=" + resourceHistoryID +
                 ", addedDate=" + addedDate +
                 ", remarks='" + remarks + '\'' +
-                ", position='" + position + '\'' +
                 '}';
     }
 }

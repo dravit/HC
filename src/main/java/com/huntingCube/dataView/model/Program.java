@@ -46,4 +46,19 @@ public class Program extends BaseEntity implements Serializable {
                 ", programName='" + programName + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Program program = (Program) o;
+
+        return programName.equals(program.programName);
+    }
+
+    @Override
+    public int hashCode() {
+        return programName.hashCode();
+    }
 }

@@ -70,4 +70,22 @@ public class Client extends BaseEntity implements Serializable {
                 ", clientContactNumber='" + clientContactNumber + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Client client = (Client) o;
+
+        if (!clientName.equals(client.clientName)) return false;
+        return emailID.equals(client.emailID);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = clientName.hashCode();
+        result = 31 * result + emailID.hashCode();
+        return result;
+    }
 }

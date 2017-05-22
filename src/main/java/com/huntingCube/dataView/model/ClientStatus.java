@@ -46,4 +46,19 @@ public class ClientStatus extends BaseEntity implements Serializable {
                 ", clientStatusName='" + clientStatusName + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClientStatus that = (ClientStatus) o;
+
+        return clientStatusName.equals(that.clientStatusName);
+    }
+
+    @Override
+    public int hashCode() {
+        return clientStatusName.hashCode();
+    }
 }

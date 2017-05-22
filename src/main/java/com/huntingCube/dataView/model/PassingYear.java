@@ -46,4 +46,19 @@ public class PassingYear extends BaseEntity implements Serializable {
                 ", passingYear='" + passingYear + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PassingYear that = (PassingYear) o;
+
+        return passingYear.equals(that.passingYear);
+    }
+
+    @Override
+    public int hashCode() {
+        return passingYear.hashCode();
+    }
 }

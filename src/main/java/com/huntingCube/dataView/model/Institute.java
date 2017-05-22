@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "INSTITUTE")
-@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
+@org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.TRANSACTIONAL)
 public class Institute extends BaseEntity implements Serializable {
 
     @javax.persistence.Id
@@ -45,5 +45,20 @@ public class Institute extends BaseEntity implements Serializable {
                 "id=" + id +
                 ", instituteName='" + instituteName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Institute institute = (Institute) o;
+
+        return instituteName.equals(institute.instituteName);
+    }
+
+    @Override
+    public int hashCode() {
+        return instituteName.hashCode();
     }
 }

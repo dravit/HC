@@ -46,4 +46,19 @@ public class ClientPosition extends BaseEntity implements Serializable {
                 ", clientPosition='" + clientPosition + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ClientPosition that = (ClientPosition) o;
+
+        return clientPosition.equals(that.clientPosition);
+    }
+
+    @Override
+    public int hashCode() {
+        return clientPosition.hashCode();
+    }
 }

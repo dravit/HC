@@ -46,4 +46,19 @@ public class Stream extends BaseEntity implements Serializable {
                 ", streamName='" + streamName + '\'' +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Stream stream = (Stream) o;
+
+        return streamName.equals(stream.streamName);
+    }
+
+    @Override
+    public int hashCode() {
+        return streamName.hashCode();
+    }
 }

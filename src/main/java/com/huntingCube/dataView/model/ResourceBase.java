@@ -9,9 +9,7 @@ import java.util.Date;
  * Created by dgup27 on 5/21/2017.
  */
 @MappedSuperclass
-public class ResourceBase extends BaseEntity {
-
-
+public abstract class ResourceBase extends BaseEntity {
 
     @NotEmpty
     @Column(name = "NAME")
@@ -311,5 +309,20 @@ public class ResourceBase extends BaseEntity {
                 ", facebookProfile='" + facebookProfile + '\'' +
                 ", addedDate=" + addedDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ResourceBase that = (ResourceBase) o;
+
+        return emailId.equals(that.emailId);
+    }
+
+    @Override
+    public int hashCode() {
+        return emailId.hashCode();
     }
 }
