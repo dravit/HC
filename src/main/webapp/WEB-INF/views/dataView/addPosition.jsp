@@ -8,7 +8,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Add Client Position</title>
+    <title>Add Position</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -23,18 +23,19 @@
                         <div class="box dark">
                             <header>
                                 <div class="icons"><i class="fa fa-edit"></i></div>
-                                <h5>Add Client Position</h5>
+                                <h5>Add Position</h5>
                             </header>
                             <div id="div-1" class="body">
-                                <form:form method="POST" modelAttribute="clientPosition" class="form-horizontal">
+                                <form:form method="POST" modelAttribute="position" class="form-horizontal">
                                     <form:input type="hidden" path="id" id="id"/>
                                     <form:input type="hidden" path="addedBy" id="addedBy" value="${userSSOId}"/>
                                     <div class="form-group">
-                                        <label for="clientPosition" class="control-label col-lg-3">Client Position</label>
+                                        <label for="positionName" class="control-label col-lg-3">Position</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="clientPosition" id="clientPosition" class="form-control"/>
+                                            <form:input type="text" path="positionName" id="positionName"
+                                                        class="form-control"/>
                                             <div class="has-error">
-                                                <form:errors path="clientPosition" class="help-inline"/>
+                                                <form:errors path="positionName" class="help-inline"/>
                                             </div>
                                         </span>
                                     </div>

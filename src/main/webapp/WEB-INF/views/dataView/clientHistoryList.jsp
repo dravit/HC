@@ -37,7 +37,7 @@
                             <td nowrap="nowrap"><a class="resourceHistoryDetails"
                                                    href="${pageContext.request.contextPath}/resourceHistoryDetails-${clientHistory.resourceHistoryID}"
                                                    title="Resource History Details for ${resourceDetails.name}">${clientHistory.client.clientName}</a></td>
-                            <td nowrap="nowrap">${clientHistory.clientPosition.clientPosition}</td>
+                            <td nowrap="nowrap">${clientHistory.positionName.positionName}</td>
                             <td nowrap="nowrap">${clientHistory.clientStatus.clientStatusName}</td>
                             <td nowrap="nowrap">${clientHistory.addedBy}</td>
                             <td nowrap="nowrap">${clientHistory.addedDate}</td>

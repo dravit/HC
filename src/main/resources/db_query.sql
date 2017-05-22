@@ -1,3 +1,5 @@
+CREATE database HUNTING_CUBE;
+
 USE HUNTING_CUBE;
 /*All User's gets stored in APP_USER table*/
 create table APP_USER (
@@ -41,7 +43,7 @@ VALUES ('DBA');
 
 /* Populate one Admin User which will further create other users for the application using GUI */
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email)
-VALUES ('dravit','$2a$10$4eqIF5s/ewJwHK1p8lqlFOEm2QIA0S8g6./Lok.pQxqcxaBZYChRm', 'Dravit','Gupta','dravit.info@gmail.com');
+VALUES ('dravit','$2a$10$aO4xE0qbZYYs1w/QgSax6.sxQoCPZxfyUEqS2aLIDmX1NTFOmuIjS', 'Dravit','Gupta','dravit.info@gmail.com');
 
 
 /* Populate JOIN Table */

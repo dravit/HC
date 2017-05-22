@@ -1,13 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Client Position List</title>
+    <title>Position List</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -22,8 +22,9 @@
                         <div class="box">
                             <header>
                                 <div class="icons"><i class="fa fa-table"></i></div>
-                                <h5>List Of Client Positions</h5>
-                                <span><a href="<c:url value='/addClientPosition' />" style="float:right; margin-right:10px; padding-top: 5px">Add Client Position</a></span>
+                                <h5>List Of Position</h5>
+                                <span><a href="<c:url value='/addPosition' />"
+                                         style="float:right; margin-right:10px; padding-top: 5px">Add Position</a></span>
                             </header>
                             <div id="collapse4" class="body">
                                 <table id="dataTable"
@@ -34,12 +35,15 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <c:forEach items="${clientPosition}" var="clientPosition">
+                                    <c:forEach items="${position}" var="position">
                                         <tr>
-                                            <td>${clientPosition.clientPosition}</td>
+                                            <td>${position.positionName}</td>
                                             <sec:authorize access="hasRole('ADMIN')">
-                                                <td style="float: right;"><a href="<c:url value='/edit-clientPosition-${clientPosition.id}' />" class="btn btn-success custom-width">Edit</a>
-                                                    <a href="<c:url value='/delete-clientPosition-${clientPosition.id}' />" class="btn btn-danger custom-width">Delete</a></td>
+                                                <td style="float: right;"><a
+                                                        href="<c:url value='/edit-position-${position.id}' />"
+                                                        class="btn btn-success custom-width">Edit</a>
+                                                    <a href="<c:url value='/delete-position-${position.id}' />"
+                                                       class="btn btn-danger custom-width">Delete</a></td>
                                             </sec:authorize>
                                         </tr>
                                     </c:forEach>

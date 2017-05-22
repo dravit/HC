@@ -7,21 +7,29 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 /**
- * Created by dgup27 on 5/12/2017.
+ * Created by dgup27 on 5/22/2017.
  */
 @Entity
-@Table(name = "CLIENT_POSITION")
+@Table(name = "POSITION")
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class ClientPosition extends BaseEntity implements Serializable {
+public class Position extends BaseEntity implements Serializable {
 
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "CLIENT_POSITION_ID")
+    @Column(name = "POSITION_ID")
     private int id;
 
     @NotEmpty
-    @Column(name = "CLIENT_POSITION", nullable = false)
-    private String clientPosition;
+    @Column(name = "POSITION_NAME", nullable = false)
+    private String positionName;
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
+    }
 
     public int getId() {
         return id;
@@ -31,19 +39,11 @@ public class ClientPosition extends BaseEntity implements Serializable {
         this.id = id;
     }
 
-    public String getClientPosition() {
-        return clientPosition;
-    }
-
-    public void setClientPosition(String clientPosition) {
-        this.clientPosition = clientPosition;
-    }
-
     @Override
     public String toString() {
-        return "ClientPosition{" +
+        return "Position{" +
                 "id=" + id +
-                ", clientPosition='" + clientPosition + '\'' +
+                ", positionName='" + positionName + '\'' +
                 '}';
     }
 
@@ -52,13 +52,13 @@ public class ClientPosition extends BaseEntity implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        ClientPosition that = (ClientPosition) o;
+        Position position = (Position) o;
 
-        return clientPosition.equals(that.clientPosition);
+        return positionName.equals(position.positionName);
     }
 
     @Override
     public int hashCode() {
-        return clientPosition.hashCode();
+        return positionName.hashCode();
     }
 }

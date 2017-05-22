@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by dgup27 on 5/20/2017.
  */
-@SessionAttributes({"institutes", "locations", "passingYears", "programs", "streams", "clients", "clientStatuses", "clientPositions"})
+@SessionAttributes({"institutes", "locations", "passingYears", "programs", "positions", "streams", "clients", "clientStatuses"})
 public abstract class BaseController {
 
     static final Logger logger = LoggerFactory.getLogger(BaseController.class);
@@ -29,9 +29,6 @@ public abstract class BaseController {
     ClientStatusService clientStatusService;
 
     @Autowired
-    ClientPositionService clientPositionService;
-
-    @Autowired
     InstituteService instituteService;
 
     @Autowired
@@ -42,6 +39,9 @@ public abstract class BaseController {
 
     @Autowired
     ProgramService programService;
+
+    @Autowired
+    PositionService positionService;
 
     @Autowired
     StreamService streamService;
@@ -65,11 +65,6 @@ public abstract class BaseController {
         return clientStatusService.findAllStatus();
     }
 
-    @ModelAttribute("clientPositions")
-    public List<ClientPosition> initializeClientPositions() {
-        return clientPositionService.findAllPositions();
-    }
-
     @ModelAttribute("institutes")
     public List<Institute> initializeInstitutes() {
         return instituteService.findAllInstitutes();
@@ -88,6 +83,11 @@ public abstract class BaseController {
     @ModelAttribute("programs")
     public List<Program> initializePrograms() {
         return programService.findAllPrograms();
+    }
+
+    @ModelAttribute("positions")
+    public List<Position> initializePositions() {
+        return positionService.findAllPositions();
     }
 
     @ModelAttribute("streams")

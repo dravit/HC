@@ -45,7 +45,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 	ClientStatusConverter clientStatusConverter;
 
 	@Autowired
-	ClientPositionConverter clientPositionConverter;
+	PositionConverter positionConverter;
 
 	/**
      * Configure ViewResolvers to deliver preferred views.
@@ -82,7 +82,7 @@ public class AppConfig extends WebMvcConfigurerAdapter{
 		registry.addConverter(locationConverter);
 		registry.addConverter(clientConverter);
 		registry.addConverter(clientStatusConverter);
-		registry.addConverter(clientPositionConverter);
+		registry.addConverter(positionConverter);
 	}
 	
 

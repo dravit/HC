@@ -48,10 +48,11 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="clientPosition" class="control-label col-lg-3">Client Position</label>
+                        <label for="positionName" class="control-label col-lg-3">Position</label>
 
                         <span class="col-lg-3">
-                            <form:select path="clientPosition" items="${clientPositions}" itemValue="id" itemLabel="clientPosition"
+                            <form:select path="positionName" items="${positions}" itemValue="id"
+                                         itemLabel="positionName"
                                          class="form-control input-sm"/>
                         </span>
 

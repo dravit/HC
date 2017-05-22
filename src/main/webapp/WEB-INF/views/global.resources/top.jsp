@@ -42,12 +42,12 @@
                             </sec:authorize>
                             <li><a href="<c:url value='/clientList' />">Clients</a></li>
                             <li><a href="<c:url value='/clientStatusList' />">Client Status</a></li>
-                            <li><a href="<c:url value='/clientPositionList' />">Client Position</a></li>
                             <li><a href="<c:url value='/instituteList' />">Institutes</a></li>
                             <li><a href="<c:url value='/streamList' />">Streams</a></li>
                             <li><a href="<c:url value='/locationList' />">Locations</a></li>
                             <li><a href="<c:url value='/passingYearList' />">Passing Year</a></li>
                             <li><a href="<c:url value='/programList' />">Program</a></li>
+                            <li><a href="<c:url value='/positionList' />">Position</a></li>
                             <li><a href="<c:url value='/list' />">Users List</a></li>
                             <li><a href="<c:url value='/edit-user-${userSSOId}' />">Edit Details</a></li>
                         </ul>
