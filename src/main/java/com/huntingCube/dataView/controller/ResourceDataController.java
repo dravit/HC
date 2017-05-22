@@ -53,7 +53,6 @@ public class ResourceDataController extends BaseController {
     @RequestMapping(value = {"/addResource"}, method = RequestMethod.GET)
     public String addResource(ModelMap model) {
         ResourceDetails resourceDetails = new ResourceDetails();
-        logger.info("resourceDetails>>>>>>>>>>>>>"+resourceDetails.toString());
         model.addAttribute("resourceDetails", resourceDetails);
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         return "dataView/addResource";
@@ -87,11 +86,19 @@ public class ResourceDataController extends BaseController {
             HuntingCubeUtility.setGlobalModelAttributes(model, userService);
             resourceDetails.setAddedBy((String) model.get("userSSOId"));
             resourceDetails.setAddedDate(new Date());
-            logger.info(resourceDetails.toString());
             if (result.hasErrors()) {
                 logger.info("Error in result");
             }
-            resourceService.save(resourceDetails);
+            ResourceDetails resourceDetailsByEmail = resourceService.findByEmail(resourceDetails.getEmailId());
+            if (resourceDetailsByEmail != null) {
+                logger.info("Resource Already exist by this email >> " + resourceDetailsByEmail);
+                resourceDetailsByEmail = (ResourceDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceDetailsByEmail);
+                logger.info("After Setting resource Data >> " + resourceDetailsByEmail);
+                resourceService.save(resourceDetailsByEmail);
+            } else {
+                resourceService.save(resourceDetails);
+            }
+
             resourceID = resourceDetails.getId();
         } catch (Exception e) {
             logger.error("Error while saving resource", e);

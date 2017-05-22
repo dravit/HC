@@ -52,7 +52,14 @@
                             <li><a href="<c:url value='/edit-user-${userSSOId}' />">Edit Details</a></li>
                         </ul>
                     </li>
-                    <li id="report"><a href="<c:url value='/report' />">Reports</a></li>
+                    <li id="reports" class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b> </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<c:url value='/clientStatusReport' />">Client Status Report</a></li>
+                        </ul>
+                    </li>
+
+
                     <%--<li><a href="file.html">File Manager</a></li>
                     <li class='dropdown '>
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">

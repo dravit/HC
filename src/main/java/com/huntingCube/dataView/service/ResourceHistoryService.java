@@ -21,5 +21,4 @@ public interface ResourceHistoryService {
 
     void update(ResourceHistoryDetails resourceDetails);
 
-    void getResourceHistoryFromResourceDetails(ResourceDetails resourceDetails, ResourceHistoryDetails resourceHistoryDetails);
 }

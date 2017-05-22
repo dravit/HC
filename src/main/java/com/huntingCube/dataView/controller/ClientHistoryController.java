@@ -50,7 +50,7 @@ public class ClientHistoryController extends BaseController {
             logger.info("Coming for adding client History");
             HuntingCubeUtility.setGlobalModelAttributes(model, userService);
             ResourceHistoryDetails resourceHistoryDetails = new ResourceHistoryDetails();
-            resourceHistoryService.getResourceHistoryFromResourceDetails(resourceDetails, resourceHistoryDetails);
+            resourceHistoryDetails = (ResourceHistoryDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceHistoryDetails);
             if (result.hasErrors()) {
                 logger.info("Error in result");
             }

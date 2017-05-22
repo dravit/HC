@@ -45,7 +45,9 @@ public class ClientHistoryDaoImpl extends AbstractDao<Integer, ClientHistory> im
 
     @Override
     public List<ClientHistory> findAll() {
-        return null;
+        Criteria criteria = createEntityCriteria().addOrder(Order.asc("addedDate"));
+        List<ClientHistory> clientHistoryList = (List<ClientHistory>) criteria.list();
+        return clientHistoryList;
     }
 
     @Override
