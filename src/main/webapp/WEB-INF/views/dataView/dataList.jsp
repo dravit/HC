@@ -113,8 +113,6 @@
             onComplete: function () {
                 $(this).colorbox.resize();
             }});
-        $("#adminPage").removeClass("active");
-        $("#data").addClass("active");
         Metis.MetisTable();
     });
 </script>

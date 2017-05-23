@@ -47,14 +47,14 @@
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${allClientHistoryMap}" var="clientHistoryMap">
-                                        <td nowrap="nowrap">${clientHistoryMap.clientName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.clientStatus}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.positionName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.resourceName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.resourceEmail}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.resourceContact}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.recruiterName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.action}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.clientName}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.clientStatus}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.positionName}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceName}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceEmail}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceContact}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.recruiterName}</td>
+                                        <td nowrap="nowrap">${clientHistoryMap.value.action}</td>
                                     </c:forEach>
                                     </tbody>
                                 </table>
@@ -72,9 +72,7 @@
 <script>
 
     $(function () {
-        $("#adminPage").removeClass("active");
-        $("#data").removeClass("active");
-        $("#reports").addClass("active");
+        $(".resourceData").colorbox({rel: 'resourceData'});
         Metis.MetisTable();
     });
 </script>

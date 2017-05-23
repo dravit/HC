@@ -40,7 +40,8 @@ public class ReportsController extends BaseController {
             User userServiceBySSO = userService.findBySSO(clientHistory.getAddedBy());
             clientHistoryMap.put("recruiterName", userServiceBySSO.getFirstName() + " " + userServiceBySSO.getLastName());
             if (clientHistory.getAddedBy().equals(model.get("userSSOId"))) {
-                clientHistoryMap.put("action", "Update");
+                clientHistoryMap.put("action", "<a class=\"updateStatus\"\n" +
+                        "                               href=\"/huntingCube/updateStatus-" + clientHistory.getId() + "\">Update Status</a>");
             } else {
                 clientHistoryMap.put("action", "");
             }
@@ -50,4 +51,6 @@ public class ReportsController extends BaseController {
         model.addAttribute("allClientHistoryMap", allClientHistoryMap);
         return "reports/clientStatusReport";
     }
+
+
 }

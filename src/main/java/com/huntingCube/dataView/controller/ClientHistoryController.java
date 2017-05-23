@@ -68,15 +68,9 @@ public class ClientHistoryController extends BaseController {
 
     @RequestMapping(value = {"/addClientHistory-{resourceIDs}"}, method = RequestMethod.GET)
     public String addClientHistory(@PathVariable String resourceIDs, ModelMap model) {
-        logger.info("resourceIDs>>>>>>>>>>>>>"+ resourceIDs);
-
         int resourceID = Integer.parseInt(resourceIDs.split(",")[0]);
         int resourceHistoryID = Integer.parseInt(resourceIDs.split(",")[1]);
         ClientHistory historyDetails = new ClientHistory();
-        logger.info("resourceID>>>>>>>>>>>>>>>"+resourceID);
-
-        logger.info("resourceHistoryID>>>>>>>>>>>>>>>"+resourceHistoryID);
-
         historyDetails.setResourceID(resourceID);
         historyDetails.setResourceHistoryID(resourceHistoryID);
         model.addAttribute("historyDetails", historyDetails);
@@ -105,6 +99,7 @@ public class ClientHistoryController extends BaseController {
     @RequestMapping(value = {"/getClientHistory-{resourceID}"}, method = RequestMethod.GET)
     public String getResourceClientHistory(@PathVariable int resourceID, ModelMap model) {
         List<ClientHistory> clientHistoryList = clientHistoryService.findByResource(resourceID);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         if(clientHistoryList != null) {
             ListIterator<ClientHistory> clientHistoryListIterator = clientHistoryList.listIterator();
             while(clientHistoryListIterator.hasNext()) {
@@ -119,7 +114,15 @@ public class ClientHistoryController extends BaseController {
 
     @RequestMapping(value = {"/resourceHistoryDetails-{id}"}, method = RequestMethod.GET)
     public String getResource(@PathVariable String id, ModelMap model) {
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         model.addAttribute("resourceDetail", resourceHistoryService.findById(Integer.parseInt(id)));
         return "dataView/resourceDetails";
     }
+
+    /*@RequestMapping(value = {"/updateStatus-{id}"}, method = RequestMethod.GET)
+    public String updateStatus(@PathVariable int id, ModelMap model) {
+        ClientHistory clientHistoryServiceById = clientHistoryService.findById(id);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        model.addAttribute("clientHistory", clientHistory)
+    }*/
 }

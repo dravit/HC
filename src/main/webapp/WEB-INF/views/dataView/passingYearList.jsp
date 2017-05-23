@@ -39,7 +39,8 @@
                                             <td>${passingYear.passingYear}</td>
                                             <sec:authorize access="hasRole('ADMIN')">
                                                 <td style="float: right;"><a href="<c:url value='/edit-passingYear-${passingYear.id}' />" class="btn btn-success custom-width">Edit</a>
-                                                    <a href="<c:url value='/delete-passingYear-${passingYear.id}' />" class="btn btn-danger custom-width">Delete</a></td>
+                                                        <%--<a href="<c:url value='/delete-passingYear-${passingYear.id}' />" class="btn btn-danger custom-width">Delete</a>--%>
+                                                </td>
                                             </sec:authorize>
                                         </tr>
                                     </c:forEach>

@@ -10,6 +10,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Set;
 
 /**
@@ -41,6 +46,34 @@ public class HuntingCubeUtility {
             return true;
         else
             return false;
+    }
+
+    public static int convertToInt(Object inputString) {
+        if (inputString != null && isNotEmptyOrNull((String) inputString)) {
+            return Integer.parseInt(((String) inputString).replaceAll("[^0-9]", ""));
+        } else {
+            return 0;
+        }
+    }
+
+    public static double convertToDouble(Object inputString) {
+        if (inputString != null && isNotEmptyOrNull((String) inputString)) {
+            return Double.parseDouble(((String) inputString).replaceAll("[^0-9.]", ""));
+        } else {
+            return 0.0;
+        }
+    }
+
+    public static java.sql.Date convertToDBDate(String day, String month, String year) {
+        try {
+            String dateString = month + " " + day + ", " + year;
+            DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+            Date date = format.parse(dateString);
+            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+            return sqlDate;
+        } catch (ParseException e) {
+            return new java.sql.Date((new Date()).getTime());
+        }
     }
 
     public static ResourceBase copyResourceData(ResourceBase fromResource, ResourceBase toResource) {
@@ -81,12 +114,11 @@ public class HuntingCubeUtility {
 
         toResource.setPassingYear(fromResource.getPassingYear());
 
-        toResource.setCGPA(fromResource.getCGPA());
+        //toResource.setCGPA(fromResource.getCGPA());
 
         toResource.setAirRank(fromResource.getAirRank());
 
-        if (HuntingCubeUtility.isNotEmptyOrNull(fromResource.getOtherRank()))
-            toResource.setOtherRank(fromResource.getOtherRank());
+        toResource.setOtherRank(fromResource.getOtherRank());
 
         if (HuntingCubeUtility.isNotEmptyOrNull(fromResource.getAreaOfExpertise()))
             toResource.setAreaOfExpertise(fromResource.getAreaOfExpertise());

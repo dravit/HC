@@ -1,3 +1,36 @@
+<script>
+
+    function changeCSS(selectedOption) {
+        alert(selectedOption + "");
+        if (selectedOption == 'data') {
+            $("#adminPage").removeClass("active");
+            $("#reports").removeClass("active");
+            $("#data").addClass("active");
+        } else if (selectedOption == 'adminPage') {
+            $("#reports").removeClass("active");
+            $("#data").removeClass("active");
+            $("#adminPage").addClass("active");
+        } else if (selectedOption == 'reports') {
+            $("#adminPage").removeClass("active");
+            $("#data").removeClass("active");
+            $("#reports").addClass("active");
+        }
+    }
+    function openColorBox(url) {
+        alert(url);
+        url = ${pageContext.request.contextPath} +'/' + url;
+        $.colorbox({href: url});
+    }
+
+    /*$(document).bind("contextmenu",function(e) {
+     e.preventDefault();
+     });
+     $(document).keydown(function(e){
+     if(e.which === 123){
+     return false;
+     }
+     });*/
+</script>
 <div id="top">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container-fluid">
@@ -32,8 +65,9 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <!-- .nav -->
                 <ul class="nav navbar-nav">
-                    <li id="data"><a href="<c:url value='/dataList' />">Data</a></li>
-                    <li id="adminPage" class="dropdown active">
+                    <li id="data" onclick="changeCSS('data')" class="active"><a
+                            href="<c:url value='/dataList' />">Data</a></li>
+                    <li id="adminPage" onclick="changeCSS('adminPage')" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b> </a>
                         <ul class="dropdown-menu">
                             <sec:authorize access="hasRole('ADMIN')">
@@ -52,7 +86,7 @@
                             <li><a href="<c:url value='/edit-user-${userSSOId}' />">Edit Details</a></li>
                         </ul>
                     </li>
-                    <li id="reports" class="dropdown active">
+                    <li id="reports" class="dropdown" onselect="changeCSS('')" onclick="changeCSS('reports')">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b> </a>
                         <ul class="dropdown-menu">
                             <li><a href="<c:url value='/clientStatusReport' />">Client Status Report</a></li>
@@ -79,19 +113,4 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-<script>
-    function openColorBox(url) {
-        alert(url);
-        url = ${pageContext.request.contextPath} + '/' + url;
-        $.colorbox({href:url});
-    }
 
-    /*$(document).bind("contextmenu",function(e) {
-        e.preventDefault();
-    });
-    $(document).keydown(function(e){
-        if(e.which === 123){
-            return false;
-        }
-    });*/
-</script>

@@ -3,6 +3,7 @@ package com.huntingCube.dataView.controller;
 import com.huntingCube.dataView.model.*;
 import com.huntingCube.dataView.service.*;
 import com.huntingCube.login.service.UserService;
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,4 +95,5 @@ public abstract class BaseController {
     public List<Stream> initializeStreams() {
         return streamService.findAllStreams();
     }
+
 }

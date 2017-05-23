@@ -140,13 +140,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="experience" class="control-label col-lg-3">Experience</label>
+                        <label for="experience" class="control-label col-lg-3">Experience(Years.Months)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="experience" id="experience" placeholder="Experience"
                                         class="form-control"/>
                         </span>
-                        <label for="fixedCTC" class="control-label col-lg-3">Fixed CTC</label>
+                        <label for="fixedCTC" class="control-label col-lg-3">Fixed CTC(Lacs)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="fixedCTC" id="fixedCTC" placeholder="Fixed CTC"
@@ -155,13 +155,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="variableCTC" class="control-label col-lg-3">Variable CTC</label>
+                        <label for="variableCTC" class="control-label col-lg-3">Variable CTC(Lacs)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="variableCTC" id="variableCTC" placeholder="Variable CTC"
                                         class="form-control"/>
                         </span>
-                        <label for="expectedCTC" class="control-label col-lg-3">Expected CTC</label>
+                        <label for="expectedCTC" class="control-label col-lg-3">Expected CTC(Lacs)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="expectedCTC" id="expectedCTC" placeholder="Expected CTC"
@@ -170,7 +170,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="noticePeriod" class="control-label col-lg-3">Notice Period</label>
+                        <label for="noticePeriod" class="control-label col-lg-3">Notice Period(Months)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="noticePeriod" id="noticePeriod" placeholder="Notice Period"

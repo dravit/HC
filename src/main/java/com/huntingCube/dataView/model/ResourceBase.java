@@ -1,6 +1,9 @@
 package com.huntingCube.dataView.model;
 
+import com.huntingCube.utility.HuntingCubeUtility;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -10,6 +13,8 @@ import java.util.Date;
  */
 @MappedSuperclass
 public abstract class ResourceBase extends BaseEntity {
+
+    static final Logger logger = LoggerFactory.getLogger(ResourceBase.class);
 
     @NotEmpty
     @Column(name = "NAME")
@@ -44,7 +49,7 @@ public abstract class ResourceBase extends BaseEntity {
     private int airRank;
 
     @Column(name = "OTHER_RANK")
-    private String otherRank;
+    private int otherRank;
 
     @Column(name = "AREA_EXPERTISE")
     private String areaOfExpertise;
@@ -134,16 +139,16 @@ public abstract class ResourceBase extends BaseEntity {
         return CGPA;
     }
 
-    public void setCGPA(double CGPA) {
-        this.CGPA = CGPA;
+    public void setCGPA(Object CGPA) {
+        this.CGPA = HuntingCubeUtility.convertToDouble(CGPA);
     }
 
     public int getAirRank() {
         return airRank;
     }
 
-    public void setAirRank(int airRank) {
-        this.airRank = airRank;
+    public void setAirRank(Object airRank) {
+        this.airRank = HuntingCubeUtility.convertToInt(airRank);
     }
 
     public String getAreaOfExpertise() {
@@ -182,40 +187,40 @@ public abstract class ResourceBase extends BaseEntity {
         return experience;
     }
 
-    public void setExperience(double experience) {
-        this.experience = experience;
+    public void setExperience(Object experience) {
+        this.experience = HuntingCubeUtility.convertToDouble(experience);
     }
 
     public double getFixedCTC() {
         return fixedCTC;
     }
 
-    public void setFixedCTC(double fixedCTC) {
-        this.fixedCTC = fixedCTC;
+    public void setFixedCTC(Object fixedCTC) {
+        this.fixedCTC = HuntingCubeUtility.convertToDouble(fixedCTC);
     }
 
     public double getVariableCTC() {
         return variableCTC;
     }
 
-    public void setVariableCTC(double variableCTC) {
-        this.variableCTC = variableCTC;
+    public void setVariableCTC(Object variableCTC) {
+        this.variableCTC = HuntingCubeUtility.convertToDouble(variableCTC);
     }
 
     public double getExpectedCTC() {
         return expectedCTC;
     }
 
-    public void setExpectedCTC(double expectedCTC) {
-        this.expectedCTC = expectedCTC;
+    public void setExpectedCTC(Object expectedCTC) {
+        this.expectedCTC = HuntingCubeUtility.convertToDouble(expectedCTC);
     }
 
     public double getNoticePeriod() {
         return noticePeriod;
     }
 
-    public void setNoticePeriod(double noticePeriod) {
-        this.noticePeriod = noticePeriod;
+    public void setNoticePeriod(Object noticePeriod) {
+        this.noticePeriod = HuntingCubeUtility.convertToDouble(noticePeriod);
     }
 
     public String getFacebookProfile() {
@@ -274,12 +279,12 @@ public abstract class ResourceBase extends BaseEntity {
         this.addedDate = addedDate;
     }
 
-    public String getOtherRank() {
+    public int getOtherRank() {
         return otherRank;
     }
 
-    public void setOtherRank(String otherRank) {
-        this.otherRank = otherRank;
+    public void setOtherRank(Object otherRank) {
+        this.otherRank = HuntingCubeUtility.convertToInt(otherRank);
     }
 
     @Override
