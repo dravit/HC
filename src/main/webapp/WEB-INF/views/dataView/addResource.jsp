@@ -33,7 +33,7 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="name" id="name" placeholder="Name"
-                                        class="form-control"/>
+                                        class="form-control" data-validation-optional="false"/>
                         </span>
 
                         <label for="contactNumber" class="control-label col-lg-3">Contact No.</label>
@@ -49,7 +49,7 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="emailId" id="emailId" placeholder="Email"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="email" data-validation-optional="false"/>
                         </span>
 
                         <label for="institute" class="control-label col-lg-3">Institutes</label>
@@ -88,7 +88,7 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="CGPA" id="CGPA" placeholder="CGPA"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                     </div>
 
@@ -97,13 +97,13 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="airRank" id="airRank" placeholder="AIR Rank"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                         <label for="otherRank" class="control-label col-lg-3">College Rank</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="otherRank" id="otherRank" placeholder="College Rank"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                     </div>
 
@@ -144,13 +144,13 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="experience" id="experience" placeholder="Experience"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                         <label for="fixedCTC" class="control-label col-lg-3">Fixed CTC(Lacs)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="fixedCTC" id="fixedCTC" placeholder="Fixed CTC"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                     </div>
 
@@ -159,13 +159,13 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="variableCTC" id="variableCTC" placeholder="Variable CTC"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                         <label for="expectedCTC" class="control-label col-lg-3">Expected CTC(Lacs)</label>
 
                         <span class="col-lg-3">
                             <form:input type="text" path="expectedCTC" id="expectedCTC" placeholder="Expected CTC"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                     </div>
 
@@ -174,7 +174,7 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="noticePeriod" id="noticePeriod" placeholder="Notice Period"
-                                        class="form-control"/>
+                                        class="form-control" data-validation="number" data-validation-allowing="float" data-validation-optional="true"/>
                         </span>
                         <label for="currentLocation" class="control-label col-lg-3">Current Location</label>
 
@@ -239,3 +239,6 @@
 </body>
 
 </html>
+<script>
+    $.validate();
+</script>
