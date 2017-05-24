@@ -32,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="locationName" class="control-label col-lg-3">Location</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="locationName" id="locationName" class="form-control"/>
+                                            <form:input type="text" path="locationName" id="locationName"
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="locationName" class="help-inline"/>
                                             </div>
@@ -63,3 +64,6 @@
 
 
 </html>
+<script>
+    $.validate();
+</script>

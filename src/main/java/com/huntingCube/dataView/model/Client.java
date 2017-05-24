@@ -78,14 +78,11 @@ public class Client extends BaseEntity implements Serializable {
 
         Client client = (Client) o;
 
-        if (!clientName.equals(client.clientName)) return false;
-        return emailID.equals(client.emailID);
+        return clientName.equals(client.clientName);
     }
 
     @Override
     public int hashCode() {
-        int result = clientName.hashCode();
-        result = 31 * result + emailID.hashCode();
-        return result;
+        return clientName.hashCode();
     }
 }

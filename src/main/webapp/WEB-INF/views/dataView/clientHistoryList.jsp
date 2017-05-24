@@ -8,7 +8,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Clients History</title>
-    <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
 <body>
@@ -53,8 +52,16 @@
 </html>
 
 <script>
+    $("#cboxClose").click(function () {
+        $.colorbox.close();
+        return false;
+    });
     $(function () {
-        $(".resourceHistoryDetails").colorbox({rel: 'resourceHistoryDetails'});
+        $(".resourceHistoryDetails").colorbox({
+            onClosed: function () {
+                jQuery.colorbox.close();
+            }
+        });
         $('#dataTableClientHistory').dataTable();
     });
 </script>

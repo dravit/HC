@@ -32,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="streamName" class="control-label col-lg-3">Stream</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="streamName" id="streamName" class="form-control"/>
+                                            <form:input type="text" path="streamName" id="streamName"
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="streamName" class="help-inline"/>
                                             </div>
@@ -63,3 +64,6 @@
 
 
 </html>
+<script>
+    $.validate();
+</script>

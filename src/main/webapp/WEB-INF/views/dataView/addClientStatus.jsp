@@ -32,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="clientStatusName" class="control-label col-lg-3">Client Status</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="clientStatusName" id="clientStatusName" class="form-control"/>
+                                            <form:input type="text" path="clientStatusName" id="clientStatusName"
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="clientStatusName" class="help-inline"/>
                                             </div>
@@ -63,3 +64,6 @@
 
 
 </html>
+<script>
+    $.validate();
+</script>

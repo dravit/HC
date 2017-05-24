@@ -6,7 +6,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>Resource Details</title>
-    <%@include file="../global.resources/responsiveResource.jsp" %>
+
 </head>
 
 <body>
@@ -93,5 +93,10 @@
     /*$(document).ready(function(){
         parent.jQuery.colorbox({inline:true, href:".resourceDetail"});
     });*/
+
+    $("#cboxClose").click(function () {
+        $.colorbox.close();
+        return false;
+    });
 </script>
 </html>

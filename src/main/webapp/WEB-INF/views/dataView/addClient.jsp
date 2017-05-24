@@ -32,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="clientName" class="control-label col-lg-3">Client Name</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="clientName" id="clientName" class="form-control"/>
+                                            <form:input type="text" path="clientName" id="clientName"
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="clientName" class="help-inline"/>
                                             </div>
@@ -42,7 +43,8 @@
                                     <div class="form-group">
                                         <label for="emailID" class="control-label col-lg-3">Client Email</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="emailID" id="emailID" class="form-control"/>
+                                            <form:input type="text" path="emailID" id="emailID" class="form-control"
+                                                        data-validation="email" data-validation-optional="true"/>
                                             <div class="has-error">
                                                 <form:errors path="emailID" class="help-inline"/>
                                             </div>
@@ -83,3 +85,7 @@
 
 
 </html>
+
+<script>
+    $.validate();
+</script>

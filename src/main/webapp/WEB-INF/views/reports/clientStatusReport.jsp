@@ -19,11 +19,9 @@
         <div class="outer">
             <div class="inner bg-light lter">
                 <div class="row">
-                    <%--
-                                        <div class="col-lg-12">
-                                            <%@include file="filter.jsp" %>
-                                        </div>
-                    --%>
+                    <div class="col-lg-12">
+                        <%@include file="clientHistoryFilter.jsp" %>
+                    </div>
                     <div class="col-lg-12">
                         <div class="box">
                             <header>
@@ -47,14 +45,16 @@
                                     </thead>
                                     <tbody>
                                     <c:forEach items="${allClientHistoryMap}" var="clientHistoryMap">
-                                        <td nowrap="nowrap">${clientHistoryMap.value.clientName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.clientStatus}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.positionName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceEmail}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.resourceContact}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.recruiterName}</td>
-                                        <td nowrap="nowrap">${clientHistoryMap.value.action}</td>
+                                        <tr>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.clientName}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.clientStatus}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.positionName}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.resourceName}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.resourceEmail}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.resourceContact}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.recruiterName}</td>
+                                            <td nowrap="nowrap">${clientHistoryMap.value.action}</td>
+                                        </tr>
                                     </c:forEach>
                                     </tbody>
                                 </table>

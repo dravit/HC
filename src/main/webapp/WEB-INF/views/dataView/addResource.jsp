@@ -33,7 +33,7 @@
 
                         <span class="col-lg-3">
                             <form:input type="text" path="name" id="name" placeholder="Name"
-                                        class="form-control" data-validation-optional="false"/>
+                                        class="form-control" data-validation="required"/>
                         </span>
 
                         <label for="contactNumber" class="control-label col-lg-3">Contact No.</label>

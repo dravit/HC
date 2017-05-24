@@ -105,7 +105,11 @@ public class ClientHistoryController extends BaseController {
             while(clientHistoryListIterator.hasNext()) {
                 ClientHistory clientHistory = clientHistoryListIterator.next();
                 User user = userService.findBySSO(clientHistory.getAddedBy());
-                clientHistory.setAddedBy(user.getFirstName() + " " + user.getLastName());
+                if (user != null) {
+                    clientHistory.setAddedBy(user.getFirstName() + " " + user.getLastName());
+                } else {
+                    clientHistory.setAddedBy(clientHistory.getAddedBy());
+                }
             }
         }
         model.addAttribute("clientHistoryList", clientHistoryList);

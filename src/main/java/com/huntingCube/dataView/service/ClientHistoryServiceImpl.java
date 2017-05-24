@@ -44,6 +44,11 @@ public class ClientHistoryServiceImpl implements ClientHistoryService {
     }
 
     @Override
+    public List<ClientHistory> findByFilter(ClientHistory clientHistory) {
+        return clientHistoryDao.findByFilter(clientHistory);
+    }
+
+    @Override
     public void save(ClientHistory clientHistory) {
         clientHistoryDao.save(clientHistory);
     }

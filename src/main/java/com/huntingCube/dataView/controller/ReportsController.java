@@ -25,8 +25,23 @@ public class ReportsController extends BaseController {
 
     @RequestMapping(value = {"/clientStatusReport"}, method = RequestMethod.GET)
     public String clientStatusReport(ModelMap model) {
-        List<ClientHistory> clientHistories = clientHistoryService.findAll();
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        ClientHistory clientHistoryFilter = new ClientHistory();
+        model.addAttribute("filterClientHistory", clientHistoryFilter);
+        clientStatusReportData(model, clientHistoryFilter);
+        return "reports/clientStatusReport";
+    }
+
+    @RequestMapping(value = {"/clientStatusReport"}, method = RequestMethod.POST)
+    public String clientStatusReportFiltered(ModelMap model, ClientHistory clientHistory) {
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        model.addAttribute("filterClientHistory", clientHistory);
+        clientStatusReportData(model, clientHistory);
+        return "reports/clientStatusReport";
+    }
+
+    private void clientStatusReportData(ModelMap model, ClientHistory clientHistoryFilter) {
+        List<ClientHistory> clientHistories = clientHistoryService.findByFilter(clientHistoryFilter);
         Map<String, Map<String, String>> allClientHistoryMap = new HashMap<>();
         for (ClientHistory clientHistory : clientHistories) {
             Map<String, String> clientHistoryMap = new HashMap<>();
@@ -38,7 +53,12 @@ public class ReportsController extends BaseController {
             clientHistoryMap.put("resourceEmail", resourceServiceById.getEmailId());
             clientHistoryMap.put("resourceContact", resourceServiceById.getContactNumber());
             User userServiceBySSO = userService.findBySSO(clientHistory.getAddedBy());
-            clientHistoryMap.put("recruiterName", userServiceBySSO.getFirstName() + " " + userServiceBySSO.getLastName());
+            if (userServiceBySSO != null) {
+                clientHistoryMap.put("recruiterName", userServiceBySSO.getFirstName() + " " + userServiceBySSO.getLastName());
+            } else {
+                clientHistoryMap.put("recruiterName", clientHistory.getAddedBy());
+            }
+
             if (clientHistory.getAddedBy().equals(model.get("userSSOId"))) {
                 clientHistoryMap.put("action", "<a class=\"updateStatus\"\n" +
                         "                               href=\"/huntingCube/updateStatus-" + clientHistory.getId() + "\">Update Status</a>");
@@ -49,7 +69,6 @@ public class ReportsController extends BaseController {
         }
 
         model.addAttribute("allClientHistoryMap", allClientHistoryMap);
-        return "reports/clientStatusReport";
     }
 
 

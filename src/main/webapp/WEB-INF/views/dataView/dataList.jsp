@@ -23,7 +23,7 @@
             <div class="inner bg-light lter">
                 <div class="row">
                     <div class="col-lg-12">
-                        <%@include file="filter.jsp" %>
+                        <%@include file="resourceFilter.jsp" %>
                     </div>
                     <div class="col-lg-12">
                         <div class="box">
@@ -105,13 +105,31 @@
 <script>
 
     $(function () {
-        $(".resourceData").colorbox({rel: 'resourceData'});
-        $(".clientHistory").colorbox({rel: 'clientHistory'});
-        $(".editResourceData").colorbox({rel: 'editResourceData'});
-        $(".sendToClient").colorbox({rel: 'sendToClient'});
+        $(".resourceData").colorbox({
+            rel: 'resourceData', onClosed: function () {
+                parent.jQuery.colorbox.close();
+            }
+        });
+        $(".clientHistory").colorbox({
+            rel: 'clientHistory', onClosed: function () {
+                jQuery.colorbox.close();
+            }
+        });
+        $(".editResourceData").colorbox({
+            rel: 'editResourceData', onClosed: function () {
+                parent.jQuery.colorbox.close();
+            }
+        });
+        $(".sendToClient").colorbox({
+            rel: 'sendToClient', onClosed: function () {
+                parent.jQuery.colorbox.close();
+            }
+        });
         $(".addResource").colorbox({rel: 'addResource',
             onComplete: function () {
                 $(this).colorbox.resize();
+            }, onClosed: function () {
+                parent.jQuery.colorbox.close();
             }});
         Metis.MetisTable();
     });

@@ -1,11 +1,11 @@
 package com.huntingCube.utility;
 
 import com.huntingCube.dataView.model.ResourceBase;
-import com.huntingCube.dataView.model.ResourceDetails;
-import com.huntingCube.dataView.model.ResourceHistoryDetails;
 import com.huntingCube.login.model.User;
 import com.huntingCube.login.model.UserProfile;
 import com.huntingCube.login.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.ui.ModelMap;
@@ -21,6 +21,8 @@ import java.util.Set;
  * Created by dgup27 on 1/10/2017.
  */
 public class HuntingCubeUtility {
+
+    static final Logger logger = LoggerFactory.getLogger(HuntingCubeUtility.class);
 
     public static void setGlobalModelAttributes(ModelMap model, UserService userService) {
         String userName = null;
@@ -49,16 +51,16 @@ public class HuntingCubeUtility {
     }
 
     public static int convertToInt(Object inputString) {
-        if (inputString != null && isNotEmptyOrNull((String) inputString)) {
-            return Integer.parseInt(((String) inputString).replaceAll("[^0-9]", ""));
+        if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
+            return Integer.parseInt((String.valueOf(inputString)).replaceAll("[^0-9]", ""));
         } else {
             return 0;
         }
     }
 
     public static double convertToDouble(Object inputString) {
-        if (inputString != null && isNotEmptyOrNull((String) inputString)) {
-            return Double.parseDouble(((String) inputString).replaceAll("[^0-9.]", ""));
+        if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
+            return Double.parseDouble((String.valueOf(inputString)).replaceAll("[^0-9.]", ""));
         } else {
             return 0.0;
         }
@@ -66,11 +68,16 @@ public class HuntingCubeUtility {
 
     public static java.sql.Date convertToDBDate(String day, String month, String year) {
         try {
-            String dateString = month + " " + day + ", " + year;
-            DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
-            Date date = format.parse(dateString);
-            java.sql.Date sqlDate = new java.sql.Date(date.getTime());
-            return sqlDate;
+            if (isNotEmptyOrNull(day) && isNotEmptyOrNull(month) && isNotEmptyOrNull(year)) {
+                String dateString = month + " " + day + ", " + year;
+                DateFormat format = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH);
+                Date date = format.parse(dateString);
+                java.sql.Date sqlDate = new java.sql.Date(date.getTime());
+                return sqlDate;
+            } else {
+                return null;
+            }
+
         } catch (ParseException e) {
             return new java.sql.Date((new Date()).getTime());
         }

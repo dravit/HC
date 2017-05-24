@@ -32,7 +32,8 @@
                                     <div class="form-group">
                                         <label for="passingYear" class="control-label col-lg-3">Passing Year</label>
                                         <span class="col-lg-8">
-                                            <form:input type="text" path="passingYear" id="passingYear" class="form-control"/>
+                                            <form:input type="text" path="passingYear" id="passingYear"
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="passingYear" class="help-inline"/>
                                             </div>
@@ -63,3 +64,6 @@
 
 
 </html>
+<script>
+    $.validate();
+</script>

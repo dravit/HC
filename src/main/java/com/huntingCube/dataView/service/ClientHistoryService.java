@@ -19,6 +19,8 @@ public interface ClientHistoryService {
 
     List<ClientHistory> findAll();
 
+    List<ClientHistory> findByFilter(ClientHistory clientHistory);
+
     void save(ClientHistory clientHistory);
 
     void deleteById(int id);

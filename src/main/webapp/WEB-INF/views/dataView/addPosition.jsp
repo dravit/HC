@@ -33,7 +33,7 @@
                                         <label for="positionName" class="control-label col-lg-3">Position</label>
                                         <span class="col-lg-8">
                                             <form:input type="text" path="positionName" id="positionName"
-                                                        class="form-control"/>
+                                                        class="form-control" data-validation="required"/>
                                             <div class="has-error">
                                                 <form:errors path="positionName" class="help-inline"/>
                                             </div>
@@ -64,3 +64,6 @@
 
 
 </html>
+<script>
+    $.validate();
+</script>

@@ -45,6 +45,21 @@ public class ResourceServiceImpl implements ResourceService {
     @Autowired
     StreamDao streamDao;
 
+    @Autowired
+    ClientDao clientDao;
+
+    @Autowired
+    ClientHistoryDao clientHistoryDao;
+
+    @Autowired
+    ClientStatusDao clientStatusDao;
+
+    @Autowired
+    PositionDao positionDao;
+
+    @Autowired
+    ResourceHistoryDao resourceHistoryDao;
+
     @Override
     public List<ResourceDetails> findResources(int maxRecords, ResourceDetails resourceDetails) {
         return resourceDao.findResources(maxRecords, resourceDetails);
@@ -87,43 +102,46 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     private int readExcelAndSaveRecords(String excelPath, int noOfRecordsPersisted) throws IOException {
-        FileInputStream file = new FileInputStream(new File(excelPath));
-        XSSFWorkbook workbook = new XSSFWorkbook(file);
-        int noOfSheets = workbook.getNumberOfSheets();
-        for (int i = 0; i < noOfSheets; i++) {
-            XSSFSheet sheet = workbook.getSheetAt(i);
-            boolean isFirstRow = true;
-            LinkedList<String> columnNamesList = new LinkedList<>();
-            for (int rowCount = 0; rowCount <= sheet.getLastRowNum(); rowCount++) {
-                Row row = sheet.getRow(rowCount);
-                if (row.getCell(0) == null || row.getCell(0).getStringCellValue() == null || row.getCell(0).getStringCellValue().isEmpty()) {
+        try {
+
+            FileInputStream file = new FileInputStream(new File(excelPath));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            //int noOfSheets = workbook.getNumberOfSheets();
+            int noOfSheets = 1;
+            for (int i = 0; i < noOfSheets; i++) {
+                XSSFSheet sheet = workbook.getSheetAt(i);
+                boolean isFirstRow = true;
+                LinkedList<String> columnNamesList = new LinkedList<>();
+                for (int rowCount = 0; rowCount <= sheet.getLastRowNum(); rowCount++) {
+                    Row row = sheet.getRow(rowCount);
+                /*if (row.getCell(0) == null || row.getCell(0).getStringCellValue() == null || row.getCell(0).getStringCellValue().isEmpty()) {
                     rowCount++;
                     continue;
                 }
-                ResourceDetails resourceDetails = new ResourceDetails();
-                ResourceHistoryDetails resourceHistoryDetails = new ResourceHistoryDetails();
-                ClientHistory clientHistory = new ClientHistory();
-                Map<String, String> rowMap = new HashMap<>();
-                for (int index = 0; index <= 18; index++) {
-                    Cell cell = row.getCell(index);
-                    if (cell != null) {
-                        if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
-                            cell.setCellType(Cell.CELL_TYPE_STRING);
+                */
+                    ResourceDetails resourceDetails = new ResourceDetails();
+                    ResourceHistoryDetails resourceHistoryDetails = null;
+                    ClientHistory clientHistory = null;
+                    Map<String, String> rowMap = new HashMap<>();
+                    for (int index = 0; index <= 28; index++) {
+                        Cell cell = row.getCell(index);
+                        if (cell != null) {
+                            if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+                                cell.setCellType(Cell.CELL_TYPE_STRING);
+                            }
+                            if (rowCount == 0) {
+                                columnNamesList.add(cell.getStringCellValue().trim());
+                            } else {
+                                rowMap.put(columnNamesList.get(index),
+                                        cell == null || cell.getStringCellValue() == null || cell.getStringCellValue().isEmpty() ? "NA" : cell.getStringCellValue());
+                            }
+                        } else if (rowCount != 0) {
+                            rowMap.put(columnNamesList.get(index), "NA");
                         }
-                        if (rowCount == 0) {
-                            columnNamesList.add(cell.getStringCellValue().trim());
-                        } else {
-                            rowMap.put(columnNamesList.get(index),
-                                    cell == null || cell.getStringCellValue() == null || cell.getStringCellValue().isEmpty() ? "NA" : cell.getStringCellValue());
-                        }
-                    } else if (rowCount != 0) {
-                        rowMap.put(columnNamesList.get(index), "NA");
                     }
-                }
-                if (rowCount == 0) {
-                    //Do nothing
-                } else {
-                    try {
+                    if (rowCount == 0) {
+                        //Do nothing
+                    } else {
                         Institute institute = null;
                         Stream stream = null;
                         Program program = null;
@@ -132,8 +150,50 @@ public class ResourceServiceImpl implements ResourceService {
                         Position position = null;
                         ClientStatus clientStatus = null;
                         Client client = null;
+
                         Date addedDate = HuntingCubeUtility.convertToDBDate(
                                 rowMap.get(columnNamesList.get(0)), rowMap.get(columnNamesList.get(1)), rowMap.get(columnNamesList.get(2)));
+
+                        String clientStatusName = rowMap.get(columnNamesList.get(3));
+                        String clientPosition = rowMap.get(columnNamesList.get(4));
+                        String clientName = rowMap.get(columnNamesList.get(5));
+                        logger.info("addedDate>>>>>>>>>>>>>>>>" + addedDate);
+                        logger.info("clientName>>>>>>>>>>>>>>>>" + clientName);
+                        logger.info("clientPosition>>>>>>>>>>>>>>>>" + clientPosition);
+                        if (addedDate != null && HuntingCubeUtility.isNotEmptyOrNull(clientName) && HuntingCubeUtility.isNotEmptyOrNull(clientPosition)) {
+                            logger.info("Going for client history");
+                            clientHistory = new ClientHistory();
+                            resourceHistoryDetails = new ResourceHistoryDetails();
+                            if (clientDao.findByName(clientName) != null) {
+                                clientHistory.setClient(clientDao.findByName(clientName));
+                            } else {
+                                client = new Client();
+                                client.setClientName(clientName);
+                                client.setAddedBy("Excel Upload");
+                                clientDao.save(client);
+                                clientHistory.setClient(client);
+                            }
+                            if (clientStatusDao.findByStatusName(clientStatusName) != null) {
+                                clientHistory.setClientStatus(clientStatusDao.findByStatusName(clientStatusName));
+                            } else {
+                                clientStatus = new ClientStatus();
+                                clientStatus.setClientStatusName(clientStatusName);
+                                clientStatus.setAddedBy("Excel Upload");
+                                clientStatusDao.save(clientStatus);
+                                clientHistory.setClientStatus(clientStatus);
+                            }
+                            if (positionDao.findByName(clientPosition) != null) {
+                                clientHistory.setPositionName(positionDao.findByName(clientPosition));
+                            } else {
+                                position = new Position();
+                                position.setPositionName(clientPosition);
+                                position.setAddedBy("Excel Upload");
+                                positionDao.save(position);
+                                clientHistory.setPositionName(position);
+                            }
+                            clientHistory.setAddedDate(addedDate);
+                            clientHistory.setAddedBy(rowMap.get(columnNamesList.get(28)));
+                        }
                         resourceDetails.setName(rowMap.get(columnNamesList.get(6)));
                         resourceDetails.setContactNumber(rowMap.get(columnNamesList.get(7)));
                         if ("NA".equals(rowMap.get(columnNamesList.get(8)))) {
@@ -213,15 +273,52 @@ public class ResourceServiceImpl implements ResourceService {
 
                         resourceDetails.setLinkedinProfile(rowMap.get(columnNamesList.get(27)));
                         resourceDetails.setAddedBy("NA".equals(rowMap.get(columnNamesList.get(27))) ? "Excel Upload" : rowMap.get(columnNamesList.get(27)));
-                        resourceDetails.setAddedDate(addedDate);
-                        logger.info("Persisting resource to database {}", resourceDetails.toString());
-                        resourceDao.save(resourceDetails);
+                        if (addedDate != null)
+                            resourceDetails.setAddedDate(addedDate);
+                        else
+                            resourceDetails.setAddedDate(new Date());
+                        ResourceDetails resourceDetailsByEmail = resourceDao.findByEmail(resourceDetails.getEmailId());
+                        int resourceID = 0;
+                        int resourceHistoryID = 0;
+                        if (resourceDetailsByEmail != null) {
+                            if (addedDate != null && !(new Date()).equals(resourceDetails.getAddedDate()) && addedDate.before(resourceDetails.getAddedDate())) {
+                                //Do not add resource to resource detail as this is copy of existing resource but sent earlier
+                                logger.info("Doing nothing");
+                            } else {
+                                resourceDetailsByEmail = (ResourceDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceDetailsByEmail);
+                                logger.info("After Setting resource Data >> " + resourceDetailsByEmail);
+                                resourceDao.save(resourceDetailsByEmail);
+                                logger.info("UPdating same resource again");
+                            }
+                            resourceID = resourceDetailsByEmail.getId();
+                            logger.info("By email case>>>" + resourceID);
+                        } else {
+                            logger.info("Persisting resource to database {}", resourceDetails.toString());
+                            resourceDao.save(resourceDetails);
+                            resourceID = resourceDetails.getId();
+                        }
+
+                        if (resourceHistoryDetails != null) {
+                            resourceHistoryDetails = (ResourceHistoryDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceHistoryDetails);
+                            resourceHistoryDetails.setId(0);
+                            resourceHistoryDao.save(resourceHistoryDetails);
+                            resourceHistoryID = resourceHistoryDetails.getId();
+                            logger.info("resourceHistoryID>>>>>>>>>>>>>>" + resourceHistoryID);
+                        }
+
+                        if (clientHistory != null) {
+                            clientHistory.setResourceID(resourceID);
+                            clientHistory.setResourceHistoryID(resourceHistoryID);
+                            clientHistoryDao.save(clientHistory);
+                            logger.info("clientHistory>>>>>>>>>>>>>>" + clientHistory.getId());
+                        }
+
                         noOfRecordsPersisted++;
-                    } catch (Exception e) {
-                        logger.error("Error while persisting Resource {}", resourceDetails.toString(), e);
                     }
                 }
             }
+        } catch (Exception e) {
+            logger.error("Error in excel upload>>>>>>>>>>>>>>>>", e);
         }
         return noOfRecordsPersisted;
     }

@@ -1,11 +1,13 @@
 package com.huntingCube.dataView.dao;
 
-import com.huntingCube.dataView.model.Client;
+import com.huntingCube.dataView.controller.ReportsController;
 import com.huntingCube.dataView.model.ClientHistory;
 import com.huntingCube.global.resources.dao.AbstractDao;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,6 +17,9 @@ import java.util.List;
  */
 @Repository("clientHistoryDao")
 public class ClientHistoryDaoImpl extends AbstractDao<Integer, ClientHistory> implements ClientHistoryDao {
+
+    static final Logger logger = LoggerFactory.getLogger(ReportsController.class);
+
     @Override
     public ClientHistory findById(int id) {
         ClientHistory clientHistory = getByKey(id);
@@ -45,7 +50,26 @@ public class ClientHistoryDaoImpl extends AbstractDao<Integer, ClientHistory> im
 
     @Override
     public List<ClientHistory> findAll() {
-        Criteria criteria = createEntityCriteria().addOrder(Order.asc("addedDate"));
+        Criteria criteria = createEntityCriteria().addOrder(Order.desc("addedDate"));
+        List<ClientHistory> clientHistoryList = (List<ClientHistory>) criteria.list();
+        return clientHistoryList;
+    }
+
+    @Override
+    public List<ClientHistory> findByFilter(ClientHistory clientHistory) {
+        Criteria criteria = createEntityCriteria();
+        if (clientHistory.getClient() != null) {
+            criteria.add((Restrictions.eq("client", clientHistory.getClient())));
+        }
+
+        if (clientHistory.getClientStatus() != null) {
+            criteria.add((Restrictions.eq("clientStatus", clientHistory.getClientStatus())));
+        }
+
+        if (clientHistory.getPositionName() != null) {
+            criteria.add((Restrictions.eq("positionName", clientHistory.getPositionName())));
+        }
+        criteria.addOrder(Order.desc("addedDate"));
         List<ClientHistory> clientHistoryList = (List<ClientHistory>) criteria.list();
         return clientHistoryList;
     }
