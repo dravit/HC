@@ -29,7 +29,8 @@
         src="${pageContext.request.contextPath}/static/js/app.js"></script>
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/static/js/screenFull/screenFull.js"></script>
-
+<script type="text/javascript"
+        src="${pageContext.request.contextPath}/static/js/jquery.form-validator.js"></script>
 
 <%--
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
