@@ -43,7 +43,7 @@ VALUES ('DBA');
 
 /* Populate one Admin User which will further create other users for the application using GUI */
 INSERT INTO APP_USER(sso_id, password, first_name, last_name, email)
-VALUES ('dravit','$2a$10$aO4xE0qbZYYs1w/QgSax6.sxQoCPZxfyUEqS2aLIDmX1NTFOmuIjS', 'Dravit','Gupta','dravit.info@gmail.com');
+VALUES ('dravit','$2a$10$LPa08QagIQEowu8oFCpy0uBQzVpYMGrkTjU9Gi7p6A/YUh0o/gxoi', 'Dravit','Gupta','dravit.info@gmail.com');
 
 
 /* Populate JOIN Table */

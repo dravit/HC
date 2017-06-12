@@ -2,7 +2,7 @@
 <configuration>
 
   <property name="DEV_HOME" value="C:/HuntingCubeData/Logs" />
-
+  <!--<property name="DEV_HOME" value="/home/huntingcube/logs" />-->
   <appender name="FILE-AUDIT"
             class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>${DEV_HOME}/hunting-cube.log</file>

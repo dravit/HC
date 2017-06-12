@@ -15,12 +15,7 @@ public class QuickPasswordEncodingGenerator {
      * @param args
      */
     public static void main(String[] args) {
-
-        try {
-            convertDate("12", "oct", "2017");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        encryptPassword();
     }
 
     public static void removeCharacters() {
@@ -35,7 +30,7 @@ public class QuickPasswordEncodingGenerator {
         java.sql.Date sqlDate = new java.sql.Date(date.getTime());
     }
 
-    public void encryptPassword() {
+    public static void encryptPassword() {
         String password = "dravit";
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         System.out.println(passwordEncoder.encode(password));
