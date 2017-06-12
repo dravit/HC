@@ -5,3 +5,4 @@ target/*
 *.xml
 *.iml
 src/main/webapp/WEB-INF/views/global.resources/top.jsp
+src/main/webapp/WEB-INF/views/global.resources/top.jsp
