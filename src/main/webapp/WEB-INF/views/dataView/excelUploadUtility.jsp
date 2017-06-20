@@ -44,6 +44,7 @@
             </div>
         </div>
     </div>
+    ${errorMessage}
 </div>
 </body>
 </html>
