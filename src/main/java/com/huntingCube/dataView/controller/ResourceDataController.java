@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dgup27 on 1/10/2017.
@@ -115,8 +116,23 @@ public class ResourceDataController extends BaseController {
     @RequestMapping(value = {"/addResourceExcel"}, method = RequestMethod.POST)
     public String addDataFromExcel(@Valid String filePath, ModelMap model) {
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
-        resourceService.saveExcelRecords(filePath);
-
+        Map<String, String> errorMap = resourceService.saveExcelRecords(filePath);
+        StringBuilder message = new StringBuilder();
+        if(errorMap != null) {
+            if(errorMap.containsKey("noOfRecordsPersisted")) {
+                message.append("Total Number of Records saved").append(errorMap.get("noOfRecordsPersisted")).append("\n");
+                errorMap.remove("noOfRecordsPersisted");
+            }
+            if(errorMap.containsKey("noOfRecordsPersisted")) {
+                message.append("Exception occurred : ").append(errorMap.get("Exception")).append("\n");
+                errorMap.remove("Exception");
+            }
+            for(Map.Entry<String, String> entry : errorMap.entrySet()) {
+                message.append(entry.getKey()).append(" ").append(entry.getValue()).append("\n");
+            }
+        }
+        if(!message.toString().isEmpty())
+            model.addAttribute("errorMessage", message.toString());
         return "dataView/excelUploadUtility";
     }
 
