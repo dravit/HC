@@ -89,25 +89,24 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public void saveExcelRecords(String filePath) {
+    public Map<String, String> saveExcelRecords(String filePath) {
+        Map<String, String> errorMap = null;
         try {
             logger.info("Excel File Path {}", filePath);
-            int noOfRecordsPersisted = 0;
-            int returnedNoOfRecords = readExcelAndSaveRecords(filePath, noOfRecordsPersisted);
-            logger.info("No of Records Persisted first variable {} , second variable {}", noOfRecordsPersisted, returnedNoOfRecords);
+            errorMap = readExcelAndSaveRecords(filePath);
         } catch (IOException io) {
             logger.error("Error fetching excel file", io);
         }
-
+        return errorMap;
     }
 
-    private int readExcelAndSaveRecords(String excelPath, int noOfRecordsPersisted) throws IOException {
+    private Map<String, String> readExcelAndSaveRecords(String excelPath) throws IOException {
+        int noOfRecordsPersisted = 0;
+        Map<String, String> errorMap = new HashMap<>();
         try {
-
             FileInputStream file = new FileInputStream(new File(excelPath));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
-            //int noOfSheets = workbook.getNumberOfSheets();
-            int noOfSheets = 1;
+            int noOfSheets = workbook.getNumberOfSheets();
             for (int i = 0; i < noOfSheets; i++) {
                 XSSFSheet sheet = workbook.getSheetAt(i);
                 boolean isFirstRow = true;
@@ -142,6 +141,7 @@ public class ResourceServiceImpl implements ResourceService {
                     if (rowCount == 0) {
                         //Do nothing
                     } else {
+                        errorMap.put(rowMap.get(columnNamesList.get(8)), rowMap.get(columnNamesList.get(6)));
                         Institute institute = null;
                         Stream stream = null;
                         Program program = null;
@@ -312,14 +312,16 @@ public class ResourceServiceImpl implements ResourceService {
                             clientHistoryDao.save(clientHistory);
                             logger.info("clientHistory>>>>>>>>>>>>>>" + clientHistory.getId());
                         }
-
+                        errorMap.remove(rowMap.get(columnNamesList.get(8)));
                         noOfRecordsPersisted++;
                     }
                 }
             }
         } catch (Exception e) {
             logger.error("Error in excel upload>>>>>>>>>>>>>>>>", e);
+            errorMap.put("Exception", e.getMessage());
         }
-        return noOfRecordsPersisted;
+        errorMap.put("noOfRecordsPersisted", noOfRecordsPersisted+"");
+        return errorMap;
     }
 }
