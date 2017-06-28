@@ -75,4 +75,11 @@ public class ProgramController extends BaseController {
         programService.updateProgram(program);
         return "redirect:/programList";
     }
+
+    @RequestMapping(value = { "/delete-program-{programId}" }, method = RequestMethod.GET)
+    public String deleteProgram(@PathVariable int programId, ModelMap model) {
+        programService.deleteById(programId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/programList";
+    }
 }

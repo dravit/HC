@@ -27,7 +27,7 @@
                         <th>Status</th>
                         <th>Recruiter</th>
                         <th>Added Date</th>
-                        <th>Client Remarks</th>
+                        <th>Recruiter Comments</th>
                     </tr>
                     </thead>
                     <tbody>

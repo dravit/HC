@@ -40,6 +40,8 @@ public class PassingYearDaoImpl extends AbstractDao<Integer, PassingYear> implem
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        PassingYear passingYear = findById(id);
+        passingYear.setDeleted(true);
+        saveOrUpdate(passingYear);
     }
 }

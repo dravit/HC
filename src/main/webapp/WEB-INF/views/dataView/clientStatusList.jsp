@@ -7,7 +7,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Client Status List</title>
+    <title>Candidate Status List</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -22,8 +22,8 @@
                         <div class="box">
                             <header>
                                 <div class="icons"><i class="fa fa-table"></i></div>
-                                <h5>List Of Client Status</h5>
-                                <span><a href="<c:url value='/addClientStatus' />" style="float:right; margin-right:10px; padding-top: 5px">Add Client Status</a></span>
+                                <h5>List Of Candidate Status</h5>
+                                <span><a href="<c:url value='/addClientStatus' />" style="float:right; margin-right:10px; padding-top: 5px">Add Candidate Status</a></span>
                             </header>
                             <div id="collapse4" class="body">
                                 <table id="dataTable"
@@ -39,7 +39,7 @@
                                             <td>${clientStatus.clientStatusName}</td>
                                             <sec:authorize access="hasRole('ADMIN')">
                                                 <td style="float: right;"><a href="<c:url value='/edit-clientStatus-${clientStatus.id}' />" class="btn btn-success custom-width">Edit</a>
-                                                        <%--<a href="<c:url value='/delete-clientStatus-${clientStatus.id}' />" class="btn btn-danger custom-width">Delete</a>--%>
+                                                        <a href="<c:url value='/delete-clientStatus-${clientStatus.id}' />" class="btn btn-danger custom-width">Delete</a>
                                                 </td>
                                             </sec:authorize>
                                         </tr>

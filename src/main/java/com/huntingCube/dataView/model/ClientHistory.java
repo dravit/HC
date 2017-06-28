@@ -44,7 +44,7 @@ public class ClientHistory extends BaseEntity implements Serializable {
     @Column(name = "ADDED_DATE")
     private Date addedDate;
 
-    @Column(name = "CLIENT_REMARKS")
+    @Column(name = "CLIENT_REMARKS", length = 65535)
     private String remarks;
 
     public int getId() {

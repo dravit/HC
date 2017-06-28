@@ -75,4 +75,11 @@ public class PassingYearController extends BaseController {
         passingYearService.updatePassingYear(passingYear);
         return "redirect:/passingYearList";
     }
+
+    @RequestMapping(value = { "/delete-passingYear-{passingYearId}" }, method = RequestMethod.GET)
+    public String deletePassingYear(@PathVariable int passingYearId, ModelMap model) {
+        passingYearService.deleteById(passingYearId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/passingYearList";
+    }
 }

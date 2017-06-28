@@ -42,6 +42,8 @@ public class PositionDaoImpl extends AbstractDao<Integer, Position> implements P
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Position position = findById(id);
+        position.setDeleted(true);
+        saveOrUpdate(position);
     }
 }

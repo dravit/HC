@@ -81,6 +81,8 @@ public class ClientHistoryDaoImpl extends AbstractDao<Integer, ClientHistory> im
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        ClientHistory clientHistory = findById(id);
+        clientHistory.setDeleted(true);
+        saveOrUpdate(clientHistory);
     }
 }

@@ -42,6 +42,8 @@ public class InstituteDaoImpl extends AbstractDao<Integer, Institute> implements
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Institute institute = findById(id);
+        institute.setDeleted(true);
+        saveOrUpdate(institute);
     }
 }

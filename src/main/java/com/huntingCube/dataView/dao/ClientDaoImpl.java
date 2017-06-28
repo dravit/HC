@@ -42,6 +42,8 @@ public class ClientDaoImpl extends AbstractDao<Integer, Client> implements Clien
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Client client = findById(id);
+        client.setDeleted(true);
+        saveOrUpdate(client);
     }
 }

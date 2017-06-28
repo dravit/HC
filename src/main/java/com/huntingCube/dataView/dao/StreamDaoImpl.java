@@ -39,6 +39,8 @@ public class StreamDaoImpl extends AbstractDao<Integer, Stream> implements Strea
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Stream stream = findById(id);
+        stream.setDeleted(true);
+        saveOrUpdate(stream);
     }
 }

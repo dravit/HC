@@ -75,4 +75,11 @@ public class LocationController extends BaseController {
         locationService.updateLocation(location);
         return "redirect:/locationList";
     }
+
+    @RequestMapping(value = { "/delete-location-{locationId}" }, method = RequestMethod.GET)
+    public String deleteLocation(@PathVariable int locationId, ModelMap model) {
+        locationService.deleteById(locationId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/locationList";
+    }
 }

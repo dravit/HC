@@ -28,7 +28,7 @@ public class ClientStatusConverter implements Converter<Object, ClientStatus> {
         if(source != null && source instanceof String && HuntingCubeUtility.isNotEmptyOrNull((String) source)) {
             Integer id = Integer.parseInt((String) source);
             ClientStatus clientStatus = clientStatusService.findById(id);
-            logger.info("Client Status : {}", clientStatus);
+            logger.info("Candidate Status : {}", clientStatus);
             return clientStatus;
         } else {
             return null;

@@ -22,4 +22,6 @@ public interface ResourceService {
     void update(ResourceDetails resourceDetails);
 
     Map<String, String> saveExcelRecords(String filePath);
+
+    void deleteById(int id);
 }

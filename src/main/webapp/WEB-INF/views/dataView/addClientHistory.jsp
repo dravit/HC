@@ -39,7 +39,7 @@
                                          class="form-control input-sm"/>
                         </span>
 
-                        <label for="clientStatus" class="control-label col-lg-3">Client Status</label>
+                        <label for="clientStatus" class="control-label col-lg-3">Candidate Status</label>
 
                         <span class="col-lg-3">
                             <form:select path="clientStatus" items="${clientStatuses}" itemValue="id" itemLabel="clientStatusName"
@@ -56,11 +56,11 @@
                                          class="form-control input-sm"/>
                         </span>
 
-                        <label for="remarks" class="control-label col-lg-3">Client Remarks</label>
+                        <label for="remarks" class="control-label col-lg-3">Recruiter Comments</label>
 
                         <span class="col-lg-3">
                             <form:input type="textbox" path="remarks" id="remarks"
-                                        placeholder="Client Remarks" class="form-control"/>
+                                        placeholder="Recruiter Comments" class="form-control"/>
                         </span>
                     </div>
 

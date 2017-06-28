@@ -47,6 +47,8 @@ public class LocationDaoImpl extends AbstractDao<Integer, Location> implements L
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Location location = findById(id);
+        location.setDeleted(true);
+        saveOrUpdate(location);
     }
 }

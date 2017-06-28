@@ -35,7 +35,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 	public PersistentRememberMeToken getTokenForSeries(String seriesId) {
 		logger.info("Fetch Token if any for seriesId : {}", seriesId);
 		try {
-			Criteria crit = createEntityCriteria();
+			Criteria crit = createEntityCriteriaWithoutDeleted();
 			crit.add(Restrictions.eq("series", seriesId));
 			PersistentLogin persistentLogin = (PersistentLogin) crit.uniqueResult();
 
@@ -50,7 +50,7 @@ public class HibernateTokenRepositoryImpl extends AbstractDao<String, Persistent
 	@Override
 	public void removeUserTokens(String username) {
 		logger.info("Removing Token if any for user : {}", username);
-		Criteria crit = createEntityCriteria();
+		Criteria crit = createEntityCriteriaWithoutDeleted();
 		crit.add(Restrictions.eq("username", username));
 		PersistentLogin persistentLogin = (PersistentLogin) crit.uniqueResult();
 		if (persistentLogin != null) {

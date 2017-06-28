@@ -77,4 +77,11 @@ public class InstituteController extends BaseController {
         instituteService.updateInstitute(institute);
         return "redirect:/instituteList";
     }
+
+    @RequestMapping(value = { "/delete-institute-{instituteId}" }, method = RequestMethod.GET)
+    public String deleteInstitute(@PathVariable int instituteId, ModelMap model) {
+        instituteService.deleteById(instituteId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/instituteList";
+    }
 }

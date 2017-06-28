@@ -15,7 +15,7 @@
                         </span>
             <span class="col-lg-4">
                             <form:select path="clientStatus" class="form-control input-sm">
-                                <form:option value="" label="--- Select Client Status ---"/>
+                                <form:option value="" label="--- Select Candidate Status ---"/>
                                 <form:options items="${clientStatuses}" itemValue="id" itemLabel="clientStatusName"/>
                             </form:select>
                         </span>

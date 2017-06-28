@@ -52,6 +52,13 @@ public class ResourceDaoImpl extends AbstractDao<Integer, ResourceDetails> imple
     }
 
     @Override
+    public void deleteById(int id) {
+        ResourceDetails resourceDetails = findById(id);
+        resourceDetails.setDeleted(true);
+        saveOrUpdate(resourceDetails);
+    }
+
+    @Override
     public List<ResourceDetails> findResources(int maxRecords, ResourceDetails resourceDetails) {
         boolean anySearchCriteria = false;
         Criteria criteria = createEntityCriteria();

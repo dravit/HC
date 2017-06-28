@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <form:form method="POST" modelAttribute="resourceDetails" class="form-horizontal">
-    <div id="flip"><a href="#">Show / Hide Filters</a></div>
+    <%--<div id="flip"><a href="#">Show / Hide Filters</a></div>--%>
     <div id="panel" class="row form-group">
         <div class="form-group">
             <span class="col-lg-3">
@@ -82,16 +82,16 @@
     </div>
 </form:form>
 
-<script>
+<%--<script>
     $(document).ready(function () {
         $("#flip").click(function () {
             $("#panel").slideToggle("slow");
         });
     });
-</script>
+</script>--%>
 
 <style>
-    #panel, #flip {
+    #panel{
         padding: 5px;
         text-align: center;
 
@@ -101,7 +101,6 @@
         padding-top: 5px;
         padding-left: 50px;
         padding-right: 50px;
-        display: none;
     }
 </style>
 

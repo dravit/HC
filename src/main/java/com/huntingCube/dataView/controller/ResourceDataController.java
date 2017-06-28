@@ -65,6 +65,14 @@ public class ResourceDataController extends BaseController {
         return saveOrUpdateResource(resourceDetails, result, model);
     }
 
+    @RequestMapping(value = {"/deleteResource-{resourceID}"}, method = RequestMethod.GET)
+    public String deleteResource(@PathVariable String resourceID, ModelMap model) {
+        resourceService.deleteById(Integer.parseInt(resourceID));
+        model.addAttribute("edit", true);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/dataList";
+    }
+
     @RequestMapping(value = {"/editResource-{resourceID}"}, method = RequestMethod.GET)
     public String editResource(@PathVariable String resourceID, ModelMap model) {
         ResourceDetails resourceDetails = resourceService.findById(Integer.parseInt(resourceID));
@@ -120,7 +128,7 @@ public class ResourceDataController extends BaseController {
         StringBuilder message = new StringBuilder();
         if(errorMap != null) {
             if(errorMap.containsKey("noOfRecordsPersisted")) {
-                message.append("Total Number of Records saved").append(errorMap.get("noOfRecordsPersisted")).append("\n");
+                message.append("Total Number of Records saved : ").append(errorMap.get("noOfRecordsPersisted")).append("\n");
                 errorMap.remove("noOfRecordsPersisted");
             }
             if(errorMap.containsKey("noOfRecordsPersisted")) {
@@ -131,8 +139,11 @@ public class ResourceDataController extends BaseController {
                 message.append(entry.getKey()).append(" ").append(entry.getValue()).append("\n");
             }
         }
-        if(!message.toString().isEmpty())
+
+        if(!message.toString().isEmpty()) {
+            logger.info("message>>>>>>>>>>."+message.toString());
             model.addAttribute("errorMessage", message.toString());
+        }
         return "dataView/excelUploadUtility";
     }
 

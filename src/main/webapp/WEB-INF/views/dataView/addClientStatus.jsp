@@ -8,7 +8,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Add Client Status</title>
+    <title>Add Candidate Status</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -23,14 +23,14 @@
                         <div class="box dark">
                             <header>
                                 <div class="icons"><i class="fa fa-edit"></i></div>
-                                <h5>Add Client Status</h5>
+                                <h5>Add Candidate Status</h5>
                             </header>
                             <div id="div-1" class="body">
                                 <form:form method="POST" modelAttribute="clientStatus" class="form-horizontal">
                                     <form:input type="hidden" path="id" id="id"/>
                                     <form:input type="hidden" path="addedBy" id="addedBy" value="${userSSOId}"/>
                                     <div class="form-group">
-                                        <label for="clientStatusName" class="control-label col-lg-3">Client Status</label>
+                                        <label for="clientStatusName" class="control-label col-lg-3">Candidate Status</label>
                                         <span class="col-lg-8">
                                             <form:input type="text" path="clientStatusName" id="clientStatusName"
                                                         class="form-control" data-validation="required"/>

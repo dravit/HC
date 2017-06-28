@@ -41,6 +41,8 @@ public class ClientStatusDaoImpl extends AbstractDao<Integer, ClientStatus> impl
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        ClientStatus clientStatus = findById(id);
+        clientStatus.setDeleted(true);
+        saveOrUpdate(clientStatus);
     }
 }

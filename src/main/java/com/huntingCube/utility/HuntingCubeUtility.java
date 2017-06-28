@@ -51,17 +51,27 @@ public class HuntingCubeUtility {
     }
 
     public static int convertToInt(Object inputString) {
-        if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
-            return Integer.parseInt((String.valueOf(inputString)).replaceAll("[^0-9]", ""));
-        } else {
+        try {
+            if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
+                return Integer.parseInt((String.valueOf(inputString)).replaceAll("[^0-9]", ""));
+            } else {
+                return 0;
+            }
+        } catch (NumberFormatException e) {
+            logger.error("Error while parsing value in Int : " + inputString, e);
             return 0;
         }
     }
 
     public static double convertToDouble(Object inputString) {
-        if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
-            return Double.parseDouble((String.valueOf(inputString)).replaceAll("[^0-9.]", ""));
-        } else {
+        try {
+            if (inputString != null && isNotEmptyOrNull(String.valueOf(inputString)) && !"NA".equals(String.valueOf(inputString))) {
+                return Double.parseDouble((String.valueOf(inputString)).replaceAll("[^0-9.]", ""));
+            } else {
+                return 0.0;
+            }
+        } catch (NumberFormatException e) {
+            logger.error("Error while parsing value in Double : " + inputString, e);
             return 0.0;
         }
     }
@@ -160,7 +170,8 @@ public class HuntingCubeUtility {
 
         toResource.setAddedDate(fromResource.getAddedDate());
         toResource.setAddedBy(fromResource.getAddedBy());
-
+        logger.info("From Resource>>>, {}", fromResource.toString());
+        logger.info("To Resource>>>, {}", toResource.toString());
         return toResource;
     }
 }

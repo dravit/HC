@@ -26,4 +26,6 @@ public class ResourceDetails extends ResourceBase implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+
 }

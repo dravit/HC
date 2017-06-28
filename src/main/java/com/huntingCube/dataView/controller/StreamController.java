@@ -75,4 +75,11 @@ public class StreamController extends BaseController {
         streamService.updateStream(stream);
         return "redirect:/streamList";
     }
+
+    @RequestMapping(value = { "/delete-stream-{streamId}" }, method = RequestMethod.GET)
+    public String deleteStream(@PathVariable int streamId, ModelMap model) {
+        streamService.deleteById(streamId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/streamList";
+    }
 }

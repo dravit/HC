@@ -3,6 +3,7 @@ package com.huntingCube.global.resources.dao;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
@@ -45,6 +46,10 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 	}
 	
 	protected Criteria createEntityCriteria(){
+		return getSession().createCriteria(persistentClass).add(Restrictions.ne("isDeleted", true));
+	}
+
+	protected Criteria createEntityCriteriaWithoutDeleted(){
 		return getSession().createCriteria(persistentClass);
 	}
 

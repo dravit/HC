@@ -42,7 +42,7 @@ public class ClientStatusController extends BaseController {
             }
             clientStatusService.save(clientStatus);
         } catch (Exception e) {
-            logger.error("Error while saving Client Status", e);
+            logger.error("Error while saving Candidate Status", e);
         }
         return "redirect:/clientStatusList";
     }
@@ -73,6 +73,13 @@ public class ClientStatusController extends BaseController {
         HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         clientStatus.setAddedBy((String)model.get("userSSOId"));
         clientStatusService.updateClientStatus(clientStatus);
+        return "redirect:/clientStatusList";
+    }
+
+    @RequestMapping(value = { "/delete-clientStatus-{clientStatusId}" }, method = RequestMethod.GET)
+    public String deleteClientStatus(@PathVariable int clientStatusId, ModelMap model) {
+        clientStatusService.deleteById(clientStatusId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
         return "redirect:/clientStatusList";
     }
 }

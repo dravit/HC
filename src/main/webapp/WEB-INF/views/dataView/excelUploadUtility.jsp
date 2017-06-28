@@ -33,6 +33,9 @@
                                             <input type="text" name="filePath" id="filePath" class="form-control input-sm"/>
                                         </span>
                                     </div>
+                                    <div class="form-group" style="text-decoration-color: red">
+                                        ${errorMessage}
+                                    </div>
                                     <div class="form-actions no-margin-bottom">
                                         <input type="submit" value="Upload" class="btn btn-primary">
                                     </div>
@@ -44,7 +47,6 @@
             </div>
         </div>
     </div>
-    ${errorMessage}
 </div>
 </body>
 </html>

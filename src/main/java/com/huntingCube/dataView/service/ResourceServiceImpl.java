@@ -4,7 +4,9 @@ import com.huntingCube.dataView.dao.*;
 import com.huntingCube.dataView.model.*;
 import com.huntingCube.utility.HuntingCubeUtility;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.slf4j.Logger;
@@ -100,24 +102,29 @@ public class ResourceServiceImpl implements ResourceService {
         return errorMap;
     }
 
+    @Override
+    public void deleteById(int id) {
+        resourceDao.deleteById(id);
+    }
+
     private Map<String, String> readExcelAndSaveRecords(String excelPath) throws IOException {
         int noOfRecordsPersisted = 0;
         Map<String, String> errorMap = new HashMap<>();
         try {
             FileInputStream file = new FileInputStream(new File(excelPath));
-            XSSFWorkbook workbook = new XSSFWorkbook(file);
+            org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(file);
             int noOfSheets = workbook.getNumberOfSheets();
             for (int i = 0; i < noOfSheets; i++) {
-                XSSFSheet sheet = workbook.getSheetAt(i);
+                org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(i);
                 boolean isFirstRow = true;
                 LinkedList<String> columnNamesList = new LinkedList<>();
-                for (int rowCount = 0; rowCount <= sheet.getLastRowNum(); rowCount++) {
+                for (int rowCount = 0; rowCount < sheet.getPhysicalNumberOfRows(); rowCount++) {
                     Row row = sheet.getRow(rowCount);
-                /*if (row.getCell(0) == null || row.getCell(0).getStringCellValue() == null || row.getCell(0).getStringCellValue().isEmpty()) {
+                if (row == null || row.getCell(8) == null || row.getCell(8).getStringCellValue() == null || row.getCell(8).getStringCellValue().isEmpty()) {
                     rowCount++;
                     continue;
                 }
-                */
+
                     ResourceDetails resourceDetails = new ResourceDetails();
                     ResourceHistoryDetails resourceHistoryDetails = null;
                     ClientHistory clientHistory = null;
@@ -131,8 +138,9 @@ public class ResourceServiceImpl implements ResourceService {
                             if (rowCount == 0) {
                                 columnNamesList.add(cell.getStringCellValue().trim());
                             } else {
+                                DataFormatter formatter = new DataFormatter();
                                 rowMap.put(columnNamesList.get(index),
-                                        cell == null || cell.getStringCellValue() == null || cell.getStringCellValue().isEmpty() ? "NA" : cell.getStringCellValue());
+                                        cell == null || formatter.formatCellValue(cell).isEmpty() ? "NA" : formatter.formatCellValue(cell));
                             }
                         } else if (rowCount != 0) {
                             rowMap.put(columnNamesList.get(index), "NA");
@@ -193,6 +201,7 @@ public class ResourceServiceImpl implements ResourceService {
                             }
                             clientHistory.setAddedDate(addedDate);
                             clientHistory.setAddedBy(rowMap.get(columnNamesList.get(28)));
+                            clientHistory.setRemarks(rowMap.get(columnNamesList.get(25)));
                         }
                         resourceDetails.setName(rowMap.get(columnNamesList.get(6)));
                         resourceDetails.setContactNumber(rowMap.get(columnNamesList.get(7)));
@@ -204,6 +213,7 @@ public class ResourceServiceImpl implements ResourceService {
                             resourceDetails.setInstitute(instituteDao.findByName(rowMap.get(columnNamesList.get(9))));
                         } else {
                             institute = new Institute();
+                            logger.info("rowMap.get(columnNamesList.get(9))>>>>>>>>>>>>{}", rowMap.get(columnNamesList.get(9)));
                             institute.setInstituteName(rowMap.get(columnNamesList.get(9)).toUpperCase());
                             institute.setAddedBy("Excel Upload");
                             instituteDao.save(institute);
@@ -272,7 +282,7 @@ public class ResourceServiceImpl implements ResourceService {
                         resourceDetails.setExpectedCTC(rowMap.get(columnNamesList.get(26)));
 
                         resourceDetails.setLinkedinProfile(rowMap.get(columnNamesList.get(27)));
-                        resourceDetails.setAddedBy("NA".equals(rowMap.get(columnNamesList.get(27))) ? "Excel Upload" : rowMap.get(columnNamesList.get(27)));
+                        resourceDetails.setAddedBy("NA".equals(rowMap.get(columnNamesList.get(28))) ? "Excel Upload" : rowMap.get(columnNamesList.get(28)));
                         if (addedDate != null)
                             resourceDetails.setAddedDate(addedDate);
                         else
@@ -285,6 +295,7 @@ public class ResourceServiceImpl implements ResourceService {
                                 //Do not add resource to resource detail as this is copy of existing resource but sent earlier
                                 logger.info("Doing nothing");
                             } else {
+                                logger.info("resourceDetails>>>>>>>>>>>{}", resourceDetails.toString());
                                 resourceDetailsByEmail = (ResourceDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceDetailsByEmail);
                                 logger.info("After Setting resource Data >> " + resourceDetailsByEmail);
                                 resourceDao.save(resourceDetailsByEmail);
@@ -322,6 +333,7 @@ public class ResourceServiceImpl implements ResourceService {
             errorMap.put("Exception", e.getMessage());
         }
         errorMap.put("noOfRecordsPersisted", noOfRecordsPersisted+"");
+        logger.info("ErrorMap>>>>>>>>>>>{}", errorMap.toString());
         return errorMap;
     }
 }

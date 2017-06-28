@@ -313,6 +313,7 @@ public abstract class ResourceBase extends BaseEntity {
                 ", linkedinProfile='" + linkedinProfile + '\'' +
                 ", facebookProfile='" + facebookProfile + '\'' +
                 ", addedDate=" + addedDate +
+                ", addedBy=" + getAddedBy()+
                 '}';
     }
 

@@ -18,14 +18,14 @@ public class UserProfileDaoImpl extends AbstractDao<Integer, UserProfile> implem
 	}
 
 	public UserProfile findByType(String type) {
-		Criteria crit = createEntityCriteria();
+		Criteria crit = createEntityCriteriaWithoutDeleted();
 		crit.add(Restrictions.eq("type", type));
 		return (UserProfile) crit.uniqueResult();
 	}
 	
 	@SuppressWarnings("unchecked")
 	public List<UserProfile> findAll(){
-		Criteria crit = createEntityCriteria();
+		Criteria crit = createEntityCriteriaWithoutDeleted();
 		crit.addOrder(Order.asc("type"));
 		return (List<UserProfile>)crit.list();
 	}

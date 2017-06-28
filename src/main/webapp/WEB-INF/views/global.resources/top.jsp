@@ -74,7 +74,7 @@
                                 <li><a href="<c:url value='/addResourceExcel' />">Upload Excel</a></li>
                             </sec:authorize>
                             <li><a href="<c:url value='/clientList' />">Clients</a></li>
-                            <li><a href="<c:url value='/clientStatusList' />">Client Status</a></li>
+                            <li><a href="<c:url value='/clientStatusList' />">Candidate Status</a></li>
                             <li><a href="<c:url value='/instituteList' />">Institutes</a></li>
                             <li><a href="<c:url value='/streamList' />">Streams</a></li>
                             <li><a href="<c:url value='/locationList' />">Locations</a></li>
@@ -88,7 +88,7 @@
                     <li id="reports" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b> </a>
                         <ul class="dropdown-menu">
-                            <li><a href="<c:url value='/clientStatusReport' />">Client Status Report</a></li>
+                            <li><a href="<c:url value='/clientStatusReport' />">Candidate Status Report</a></li>
                         </ul>
                     </li>
 

@@ -8,7 +8,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Client Status Report</title>
+    <title>Candidate Status Report</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -26,7 +26,7 @@
                         <div class="box">
                             <header>
                                 <div class="icons"><i class="fa fa-table"></i></div>
-                                <h5>Client Status Report</h5>
+                                <h5>Candidate Status Report</h5>
                             </header>
                             <div id="collapse4" class="body">
                                 <table id="clientStatusReportTable"

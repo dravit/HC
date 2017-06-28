@@ -18,4 +18,6 @@ public interface ResourceDao {
     ResourceDetails findByEmail(String emailID);
 
     List<ResourceDetails> findResources(int maxRecords, ResourceDetails resourceDetails);
+
+    void deleteById(int id);
 }

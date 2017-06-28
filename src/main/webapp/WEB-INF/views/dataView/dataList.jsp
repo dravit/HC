@@ -64,7 +64,7 @@
                                             <td nowrap="nowrap">${resourceDetails.skills}</td>
                                             <td nowrap="nowrap">${resourceDetails.stream.streamName}</td>
                                             <td nowrap="nowrap">${resourceDetails.program.programName}</td>
-                                            <td width="15%">
+                                            <td width="15%" nowrap="nowrap">
                                                 <a class="clientHistory"
                                                    href="${pageContext.request.contextPath}/getClientHistory-${resourceDetails.id}"
                                                    title="Client History for ${resourceDetails.name}">
@@ -80,6 +80,13 @@
                                                    title="Send ${resourceDetails.name} to Client">
                                                     <img src="<c:url value='/static/images/send-to-client.png'/>" width="20" height="20" alt="Send to Client"/>
                                                 </a>
+                                                <sec:authorize access="hasRole('ADMIN')">
+                                                    <a class="deleteResource" onsubmit="confirmFunction()"
+                                                       href="${pageContext.request.contextPath}/deleteResource-${resourceDetails.id}"
+                                                       title="Delete ${resourceDetails.name}">
+                                                        <img src="<c:url value='/static/images/delete.png'/>" width="20" height="20" alt="Delete Resource"/>
+                                                    </a>
+                                                </sec:authorize>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -133,4 +140,13 @@
             }});
         Metis.MetisTable();
     });
+
+    function confirmFunction() {
+        var r = confirm("Are you sure you want to delete this Resource!");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>

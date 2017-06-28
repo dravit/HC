@@ -15,11 +15,22 @@ public abstract class BaseEntity {
     @Column(name = "ADDED_BY", nullable = false)
     private String addedBy;
 
+    @Column(name = "IS_DELETED", nullable = false, columnDefinition = "boolean default false")
+    private boolean isDeleted;
+
     public String getAddedBy() {
         return addedBy;
     }
 
     public void setAddedBy(String addedBy) {
         this.addedBy = addedBy;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }

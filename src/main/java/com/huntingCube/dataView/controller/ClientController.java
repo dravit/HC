@@ -74,7 +74,11 @@ public class ClientController extends BaseController{
         return "redirect:/clientList";
     }
 
-
-
+    @RequestMapping(value = { "/delete-client-{clientId}" }, method = RequestMethod.GET)
+    public String deleteClient(@PathVariable int clientId, ModelMap model) {
+        clientService.deleteById(clientId);
+        HuntingCubeUtility.setGlobalModelAttributes(model, userService);
+        return "redirect:/clientList";
+    }
 
 }

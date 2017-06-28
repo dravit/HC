@@ -42,6 +42,8 @@ public class ProgramDaoImpl extends AbstractDao<Integer, Program> implements Pro
 
     @Override
     public void deleteById(int id) {
-        delete(findById(id));
+        Program program = findById(id);
+        program.setDeleted(true);
+        saveOrUpdate(program);
     }
 }
