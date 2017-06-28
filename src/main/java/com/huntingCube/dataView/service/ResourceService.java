@@ -3,6 +3,7 @@ package com.huntingCube.dataView.service;
 import com.huntingCube.dataView.model.ResourceDetails;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by dgup27 on 1/10/2017.
@@ -20,5 +21,5 @@ public interface ResourceService {
 
     void update(ResourceDetails resourceDetails);
 
-    void saveExcelRecords(String filePath);
+    Map<String, String> saveExcelRecords(String filePath);
 }
