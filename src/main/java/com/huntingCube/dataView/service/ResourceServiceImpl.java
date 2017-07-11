@@ -114,13 +114,14 @@ public class ResourceServiceImpl implements ResourceService {
             FileInputStream file = new FileInputStream(new File(excelPath));
             org.apache.poi.ss.usermodel.Workbook workbook = WorkbookFactory.create(file);
             int noOfSheets = workbook.getNumberOfSheets();
+            DataFormatter formatter = new DataFormatter();
             for (int i = 0; i < noOfSheets; i++) {
                 org.apache.poi.ss.usermodel.Sheet sheet = workbook.getSheetAt(i);
                 boolean isFirstRow = true;
                 LinkedList<String> columnNamesList = new LinkedList<>();
                 for (int rowCount = 0; rowCount < sheet.getPhysicalNumberOfRows(); rowCount++) {
                     Row row = sheet.getRow(rowCount);
-                if (row == null || row.getCell(8) == null || row.getCell(8).getStringCellValue() == null || row.getCell(8).getStringCellValue().isEmpty()) {
+                if (row == null || row.getCell(8) == null || formatter.formatCellValue(row.getCell(8)) == null || formatter.formatCellValue(row.getCell(8)).isEmpty()) {
                     rowCount++;
                     continue;
                 }
@@ -136,9 +137,9 @@ public class ResourceServiceImpl implements ResourceService {
                                 cell.setCellType(Cell.CELL_TYPE_STRING);
                             }
                             if (rowCount == 0) {
-                                columnNamesList.add(cell.getStringCellValue().trim());
+                                columnNamesList.add(formatter.formatCellValue(cell).trim());
                             } else {
-                                DataFormatter formatter = new DataFormatter();
+
                                 rowMap.put(columnNamesList.get(index),
                                         cell == null || formatter.formatCellValue(cell).isEmpty() ? "NA" : formatter.formatCellValue(cell));
                             }
