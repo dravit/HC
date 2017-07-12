@@ -1,34 +1,37 @@
 <script>
 
-
-    /*$(document).bind("contextmenu",function(e) {
+function changeCSS() {
+    alert("Going for change");
+}
+    $(document).bind("contextmenu",function(e) {
      e.preventDefault();
      });
      $(document).keydown(function(e){
      if(e.which === 123){
      return false;
      }
-     });*/
-    $("#data").find('a').click(function () {
-        alert("Data");
-        $("#adminPage").removeClass("active");
-        $("#reports").removeClass("active");
-        $("#data").addClass("active");
-    });
+     });
+        $("ul#data li").click(function () {
+            alert("Data");
+            $("#adminPage").removeClass("active");
+            $("#reports").removeClass("active");
+            $("#data").addClass("active");
+        });
 
-    $("#adminPage").find('a').click(function () {
-        alert("Admin");
-        $("#reports").removeClass("active");
-        $("#data").removeClass("active");
-        $("#adminPage").addClass("active");
-    });
+        $("#adminPage").click(function () {
+            alert("Admin");
+            $("#reports").removeClass("active");
+            $("#data").removeClass("active");
+            $("#adminPage").addClass("active");
+        });
 
-    $("#reports").find('a').click(function () {
-        alert("Report");
-        $("#adminPage").removeClass("active");
-        $("#data").removeClass("active");
-        $("#reports").addClass("active");
-    });
+        $("#reports").click(function () {
+            alert("Report");
+            $("#adminPage").removeClass("active");
+            $("#data").removeClass("active");
+            $("#reports").addClass("active");
+        });
+
 </script>
 <div id="top">
     <nav class="navbar navbar-inverse navbar-static-top">
@@ -64,7 +67,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <!-- .nav -->
                 <ul class="nav navbar-nav">
-                    <li id="data" class="active"><a
+                    <li id="data" class="active" onclick="javascript:changeCSS('data');"><a
                             href="<c:url value='/dataList' />">Data</a></li>
                     <li id="adminPage" class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">Admin<b class="caret"></b> </a>
