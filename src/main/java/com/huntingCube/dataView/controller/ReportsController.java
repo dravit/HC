@@ -41,6 +41,7 @@ public class ReportsController extends BaseController {
     }
 
     private void clientStatusReportData(ModelMap model, ClientHistory clientHistoryFilter) {
+        clientHistoryFilter.setAddedBy((String)model.get("userSSOId"));
         List<ClientHistory> clientHistories = clientHistoryService.findByFilter(clientHistoryFilter);
         Map<String, Map<String, String>> allClientHistoryMap = new HashMap<>();
         for (ClientHistory clientHistory : clientHistories) {
@@ -59,7 +60,7 @@ public class ReportsController extends BaseController {
                 clientHistoryMap.put("recruiterName", clientHistory.getAddedBy());
             }
 
-            if (clientHistory.getAddedBy().equals(model.get("userSSOId"))) {
+            if (clientHistory.getAddedBy().equals((String)model.get("userSSOId"))) {
                 clientHistoryMap.put("action", "<a class=\"updateStatus\"\n" +
                         "                               href=\"/huntingCube/updateStatus-" + clientHistory.getId() + "\">Update Status</a>");
             } else {
@@ -67,9 +68,6 @@ public class ReportsController extends BaseController {
             }
             allClientHistoryMap.put(clientHistory.getId() + "", clientHistoryMap);
         }
-
         model.addAttribute("allClientHistoryMap", allClientHistoryMap);
     }
-
-
 }
