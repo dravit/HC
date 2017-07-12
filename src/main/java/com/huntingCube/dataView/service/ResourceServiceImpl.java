@@ -166,11 +166,7 @@ public class ResourceServiceImpl implements ResourceService {
                         String clientStatusName = rowMap.get(columnNamesList.get(3));
                         String clientPosition = rowMap.get(columnNamesList.get(4));
                         String clientName = rowMap.get(columnNamesList.get(5));
-                        logger.info("addedDate>>>>>>>>>>>>>>>>" + addedDate);
-                        logger.info("clientName>>>>>>>>>>>>>>>>" + clientName);
-                        logger.info("clientPosition>>>>>>>>>>>>>>>>" + clientPosition);
                         if (addedDate != null && HuntingCubeUtility.isNotEmptyOrNull(clientName) && HuntingCubeUtility.isNotEmptyOrNull(clientPosition)) {
-                            logger.info("Going for client history");
                             clientHistory = new ClientHistory();
                             resourceHistoryDetails = new ResourceHistoryDetails();
                             if (clientDao.findByName(clientName) != null) {
@@ -214,7 +210,6 @@ public class ResourceServiceImpl implements ResourceService {
                             resourceDetails.setInstitute(instituteDao.findByName(rowMap.get(columnNamesList.get(9))));
                         } else {
                             institute = new Institute();
-                            logger.info("rowMap.get(columnNamesList.get(9))>>>>>>>>>>>>{}", rowMap.get(columnNamesList.get(9)));
                             institute.setInstituteName(rowMap.get(columnNamesList.get(9)).toUpperCase());
                             institute.setAddedBy("Excel Upload");
                             instituteDao.save(institute);
@@ -296,16 +291,11 @@ public class ResourceServiceImpl implements ResourceService {
                                 //Do not add resource to resource detail as this is copy of existing resource but sent earlier
                                 logger.info("Doing nothing");
                             } else {
-                                logger.info("resourceDetails>>>>>>>>>>>{}", resourceDetails.toString());
                                 resourceDetailsByEmail = (ResourceDetails) HuntingCubeUtility.copyResourceData(resourceDetails, resourceDetailsByEmail);
-                                logger.info("After Setting resource Data >> " + resourceDetailsByEmail);
                                 resourceDao.save(resourceDetailsByEmail);
-                                logger.info("UPdating same resource again");
                             }
                             resourceID = resourceDetailsByEmail.getId();
-                            logger.info("By email case>>>" + resourceID);
                         } else {
-                            logger.info("Persisting resource to database {}", resourceDetails.toString());
                             resourceDao.save(resourceDetails);
                             resourceID = resourceDetails.getId();
                         }
@@ -315,14 +305,12 @@ public class ResourceServiceImpl implements ResourceService {
                             resourceHistoryDetails.setId(0);
                             resourceHistoryDao.save(resourceHistoryDetails);
                             resourceHistoryID = resourceHistoryDetails.getId();
-                            logger.info("resourceHistoryID>>>>>>>>>>>>>>" + resourceHistoryID);
                         }
 
                         if (clientHistory != null) {
                             clientHistory.setResourceID(resourceID);
                             clientHistory.setResourceHistoryID(resourceHistoryID);
                             clientHistoryDao.save(clientHistory);
-                            logger.info("clientHistory>>>>>>>>>>>>>>" + clientHistory.getId());
                         }
                         errorMap.remove(rowMap.get(columnNamesList.get(8)));
                         noOfRecordsPersisted++;
