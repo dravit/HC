@@ -58,7 +58,7 @@ public class HuntingCubeUtility {
                 return 0;
             }
         } catch (NumberFormatException e) {
-            logger.error("Error while parsing value in Int : " + inputString, e);
+            logger.error("Error while parsing value in Int : " + inputString);
             return 0;
         }
     }
@@ -71,7 +71,7 @@ public class HuntingCubeUtility {
                 return 0.0;
             }
         } catch (NumberFormatException e) {
-            logger.error("Error while parsing value in Double : " + inputString, e);
+            logger.error("Error while parsing value in Double : " + inputString);
             return 0.0;
         }
     }
