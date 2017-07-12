@@ -69,6 +69,11 @@ public class ClientHistoryDaoImpl extends AbstractDao<Integer, ClientHistory> im
         if (clientHistory.getPositionName() != null) {
             criteria.add((Restrictions.eq("positionName", clientHistory.getPositionName())));
         }
+
+        if (clientHistory.getAddedBy() != null) {
+            criteria.add((Restrictions.eq("addedBy", clientHistory.getAddedBy())));
+        }
+
         criteria.addOrder(Order.desc("addedDate"));
         List<ClientHistory> clientHistoryList = (List<ClientHistory>) criteria.list();
         return clientHistoryList;
