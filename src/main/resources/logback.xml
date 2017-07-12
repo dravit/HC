@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-  <!--<property name="DEV_HOME" value="C:/HuntingCubeData/Logs" />-->
-  <property name="DEV_HOME" value="/home/huntingcube/logs" />
-  <appender name="FILE-AUDIT"
-            class="ch.qos.logback.core.rolling.RollingFileAppender">
-    <file>${DEV_HOME}/hunting-cube.log</file>
-    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-      <Pattern>
-        %d{yyyy-MM-dd HH:mm:ss} - %msg%n
-      </Pattern>
-    </encoder>
+    <!--<property name="DEV_HOME" value="C:/HuntingCubeData/Logs" />-->
+    <property name="DEV_HOME" value="/home/huntingcube/logs"/>
 
-    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-      <!-- rollover daily -->
-      <fileNamePattern>${DEV_HOME}/archived/hunting-cube.%d{yyyy-MM-dd}.%i.log
-      </fileNamePattern>
-      <timeBasedFileNamingAndTriggeringPolicy
-              class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-        <maxFileSize>2MB</maxFileSize>
-      </timeBasedFileNamingAndTriggeringPolicy>
-    </rollingPolicy>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
+    </appender>
 
-  </appender>
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${DEV_HOME}/hunting-cube.log</file>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d{yyyy-MM-dd_HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n
+            </Pattern>
+        </encoder>
 
-  <logger name="com.huntingCube" level="info"
-          additivity="false">
-    <appender-ref ref="FILE-AUDIT" />
-  </logger>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <FileNamePattern>${DEV_HOME}/archived/hunting-cube.%i.log.zip</FileNamePattern>
+            <MinIndex>1</MinIndex>
+            <MaxIndex>10</MaxIndex>
+        </rollingPolicy>
 
-  <root level="info">
-    <appender-ref ref="FILE-AUDIT" />
-  </root>
+        <triggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <MaxFileSize>2MB</MaxFileSize>
+        </triggeringPolicy>
+
+    </appender>
+
+    <logger name="org.hibernate.type" level="ALL"/>
+    <logger name="org.hibernate" level="DEBUG"/>
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
+    </root>
 
 </configuration>
