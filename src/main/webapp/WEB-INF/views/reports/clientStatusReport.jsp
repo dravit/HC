@@ -29,7 +29,7 @@
                                 <h5>Candidate Status Report</h5>
                             </header>
                             <div id="collapse4" class="body">
-                                <table id="clientStatusReportTable"
+                                <table id="dataTable"
                                        class="table table-bordered table-condensed table-hover table-striped">
                                     <thead>
                                     <tr>
