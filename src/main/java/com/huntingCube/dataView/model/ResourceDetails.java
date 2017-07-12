@@ -12,7 +12,12 @@ import java.util.Set;
  * Created by dgup27 on 1/8/2017.
  */
 @Entity
-@Table(name = "RESOURCE_DETAILS")
+@Table(name = "RESOURCE_DETAILS" , indexes = {
+        @Index(columnList = "NAME", name = "name_index"),
+        @Index(columnList = "CONTACT_NUMBER", name = "contactNumber_index"),
+        @Index(columnList = "EMAIL", name = "emailId_index"),
+        @Index(columnList = "ADDED_BY", name = "addedBy_index")
+})
 public class ResourceDetails extends ResourceBase implements Serializable {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
