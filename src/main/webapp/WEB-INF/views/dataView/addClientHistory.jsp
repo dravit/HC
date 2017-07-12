@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Client History</title>
+    <title>Add Client History</title>
     <%@include file="../global.resources/responsiveResource.jsp" %>
 </head>
 
@@ -78,7 +78,11 @@
 
 <script>
     $(document).ready(function(){
-        $.colorbox({inline:true, href:".row"});
+        $.colorbox({inline:true, href:".row", onClosed: function () {
+                window.location.href = "<c:url value='/dataList' />";
+            }
+        });
     });
+
 </script>
 </html>
