@@ -12,7 +12,9 @@ import java.util.Date;
  * Created by dgup27 on 5/6/2017.
  */
 @Entity
-@Table(name = "CLIENT_HISTORY")
+@Table(name = "CLIENT_HISTORY" , indexes = {
+        @Index(columnList = "ADDED_BY", name = "addedBy_index")
+})
 @org.hibernate.annotations.Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 public class ClientHistory extends BaseEntity implements Serializable {
 
